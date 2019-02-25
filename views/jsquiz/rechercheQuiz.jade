@@ -1,0 +1,51 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    if msg 
+      .messageHeader.alert.alert-success.text-center(role='alert')= msg    
+    
+    .container
+        // Heading Row
+        .row
+          .col-lg-12
+            if estConnecte
+              h1.text-center Rechercher ou creer un Quiz
+            else
+              h1.text-center Rechercher un Quiz
+            form.navbar-form.text-center(role='search', style='margin:20px 0;padding:0')
+              .form-group(style='margin:0')
+                .input-group.margin-bottom-sm
+                  span.input-group-addon
+                    i.fa.fa-search.fa-fw
+                  input.form-control(id='zone-recherche-quiz', type='text',name='quiz', maxlength="15", placeholder="Rechercher un quiz...", required autofocus, style='height: 38px;')
+
+                if estConnecte  
+                  a.btn.btn-success.btn-sm.inline(href='/creerQuiz', style="font-size:1.2em;padding-right: 15px;margin:5px;" id="" type='button') 
+                    i.fa.fa-fw.fa-plus
+                    |  Creer un nouveau quiz
+            br
+
+        .row                                                               
+          .col-md-12
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title(style='font-size:2em;') 
+                    | Quizes (
+                    span#nbQuizes= nbrQuizes 
+                    | )
+              .panel-body(id='searched-quizes')    
+                each val, index in quizes 
+                    .well.text-left 
+                        a(href='/formulaireQuiz/#{val._id.id}', data-toggle="tooltip", title="titre" ) 
+                            //div.point-vert
+                            span.list-pseudo= val._id.titre
+                            div(style='display:inline-block').prenom-nom= ' ( ' + val.count + ' questions / Créé par '+ val._id.createur + ' )'
+    
+    div(style="height:400px;") 
+    include footer.jade
+
+

@@ -1,0 +1,24 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    if msg != ''
+       .messageHeader.alert.alert-success.text-center(role='alert')= msg
+
+    //contenu page
+    include main.jade
+    //include playAsGuestForm.jade
+
+    audio#switch(src='pong/audio/switch.mp3')
+    audio#pipe(src='pong/audio/pipe.mp3')        
+    audio#powerUp8(src='pong/audio/powerUp8.mp3')
+    audio#bouncePaddle(src='pong/audio/bouncePaddle.mp3')
+    audio#bounceWall(src='pong/audio/bounceWall.mp3')
+    audio#newBall(src='pong/audio/newBall.mp3')
+    audio#gameOver(src='pong/audio/gameOver.mp3')
+    audio#victory(src='pong/audio/victory.mp3')
+
+    include footer.jade

@@ -1,0 +1,82 @@
+
+
+//Facebook
+script.
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1223296177684040',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+
+
+.footer
+  .row
+    .col-md-3(style="padding:20px;text-align:left;")
+      #logo(data-toggle="tooltip", title="Home", style="margin-bottom:10px;") 
+        img#js(src='../../jsquiz/img/js.png', alt='js')
+        img#quiz(src='../../jsquiz/img/quiz2.png', alt='quiz')
+
+      .fb-like.center( data-href='http://www.felixdebon.fr', data-layout='button_count', data-action='like', data-show-faces='false' data-share='true')
+      
+      //style="display:inline-block;"
+
+      p= "Sur ce site tu vas pouvoir tester tes connaissances en JavaScript. JsQuiz propose des quiz allant du niveau débutant au niveau expert. Tu peux crée et publier tes propres quiz si tu le souhaites et discuter avec d'autres développeurs."  
+        
+
+
+    .col-md-3(style="padding:20px;text-align:left;")
+      
+      i.fa.fa-2x.fa-bar-chart(style="margin-left:3px;color:#337AB7")
+        
+      div(style="margin-top:20px")
+        a(href='#', style="font-size:0.9em;color:white")  
+          #countPosts.span.badge 0 
+          span post(s) publié(s)
+      div(style="margin-top:20px")
+        a(href='/rechercheQuiz' style="font-size:0.9em;color:white").align-left
+          #countQuiz.span.badge 0 
+          span quiz publié(s) 
+      div(style="margin-top:20px")
+        a(href='/rechercheMembre' style="font-size:0.9em;color:white")
+          #countMembers.span.badge 0   
+          span membre(s) connecté(s)
+
+    .col-md-3(style="padding:20px;text-align:left;")
+      img.img-responsive(src='../../jsquiz/img/logoMean2.png', style="width:50px;margin-bottom:10px;", alt='technos')
+      p= "Ce site a été developpé en javascript avec Node JS, Express, Socket.io, Mongo DB, Bootstrap, Jade et Jquery. Il correspond au projet final effectué dans le cadre de ma formation de développeur web Js full stack (institut IFOCOP -DIW JS 01)"
+
+      a.btn.btn-default(href='https://fr.wikipedia.org/wiki/Node.js', target="_blank") Plus d'info
+    
+    .col-md-3(style="padding:20px;text-align:left;")
+      p.textxxMedium= "Me contacter"
+      p 
+        i.fa.fa-fw.fa-envelope
+        |felix8971@hotmail.com
+      p  
+        a(style="color:white;text-decoration:underline;" href="http://felixdebon.com/zombie-cv/", target="_blank")
+          i.fa.fa-fw.fa-gamepad
+          |CV game
+      p 
+        a(style="color:white;text-decoration:underline;" href="http://felixdebon.com/portfolio/", target="_blank")
+          i.fa.fa-fw.fa-book
+          |Portfolio
+
+
+     
+//container des fenetres de chat
+#chats-container
+
+
+
+

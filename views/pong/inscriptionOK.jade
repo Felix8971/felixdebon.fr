@@ -1,0 +1,10 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    .alert.alert-success.text-center(role='alert')= 'Successful registration ! You can now connect to your account with your login and password'
+    .text-center
+      a.btn.btn-success.btn-lg(href='/pong.formulaireConnexion') Connexion  
+  include footer.jade

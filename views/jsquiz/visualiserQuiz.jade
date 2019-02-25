@@ -1,0 +1,68 @@
+doctype html
+html
+  include head.jade
+  body(style='text-align:center;') 
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs possibles msg.type: de info, warning, danger, success
+
+    .well.bloc-question#info-quiz
+      p.text-center.textxLarge.gras= quiz[0].titre
+      div.bloc-presentation-quiz
+        p
+          b= 'Créer par: '
+          span= quiz[0].createur + ' le ' + moment(quiz[0].date).format("DD/MM/YYYY à HH:mm:ss")   
+        p
+          b='Niveau: '
+          span= quiz[0].niveauJS
+      
+        if quiz[0].presentation
+          p 
+            b= 'Description: '
+            span= quiz[0].presentation
+        if !estConnecte
+          .textxMedium.text-center(style="color:blue;")= 'Te connecter tu dois pour participer aux quizz.'
+          br
+          img.center.img-responsive(style='margin:auto;width:450px' src='../../jsquiz/img/giphy-yoda.gif', alt='giphy')
+          br
+
+        hr(style='margin:0')
+
+    //if randomImg == 0
+    //  img.center.img-responsive#doordonot(style='margin:auto; width:500px;padding:10px;border-radius:100px;' src='jsquiz/img/giphy4.gif', alt='giphy' class="center img-responsive")
+    //else  
+    //  video#waitaminute(width='400', height='300' autoplay loop)
+    //    source(src='jsquiz/img/a3L6vdm_460sv.mp4', type='video/mp4')
+    //    | Your browser does not support the video tag.
+
+    br
+    each question, index in quiz
+      - var num = index + 1; 
+      div.bloc-question(id='#{index}', class'afficher' ) 
+        .panel.panel-info.center-block(style="margin:10px") 
+          .panel-heading
+            div.panel-title.textLarge
+              span(style="color:white;")= "Question " + num + "/" + quiz.length 
+
+          .panel-body(id='searched-members', style="font-family: monospace;") 
+            //.well.textxMedium.question
+            //  p!= quiz[index].question.replace(/</g, "&lt;").replace(/>/g, '&gt;').replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;')
+            pre.textxMedium.question= quiz[index].question
+
+            each rep, indice in question.reponses
+              //l'id de la reponse est composé 
+              // du numero de question (index) +  nombre de question + id du quiz +  _id de la question + indice de la reponse donnée
+
+              //en base remplacer < par &lt; et > par &gt; et egalement \n par <br> 
+              //.well.textxMedium.btn-reponse-non-cliquable.hvr-fade(title="Tu dois etre connecté pour participer aux quizz" onclick="alert('Tu dois etre connecté pour participer aux quizz')") !{rep.txt.replace(/</g, "&lt;").replace(/>/g, '&gt;').replace(/\n/g, '<br/>') }
+              //.replace(/ /g, '&nbsp;')}
+              
+              pre.textxMedium.btn-reponse.hvr-border-fade(title="Tu dois etre connecté pour participer aux quizz" onclick="alert('Tu dois etre connecté pour participer aux quizz')" style='text-align:left;white-space : pre-wrap;')= rep.txt
+
+    //script.
+    //  $('#doordonot').fadeOut(5000);  
+    //  $('#waitaminute').delay(16000).fadeOut(2000);
+         
+    include footer.jade

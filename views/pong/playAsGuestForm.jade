@@ -1,0 +1,29 @@
+//Fenetre modal pour recuperer pseudo d'un invité 
+//button.btn.btn-primary(type='button', data-toggle='modal', data-target='#playAsGuestModal', data-whatever='') Open modal
+
+#playAsGuestModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') &times;
+        |         
+        h4.modal-title Choose a pseudo
+      |       
+      .modal-body
+        form
+          .form-group
+            label.control-label(for='recipient-name') Pseudo:
+            |             
+            input#recipient-name.form-control(type='text')
+            #ErrorMsgModal.errorMsgModal
+          |           
+          .form-group
+            label.control-label(for='message-text') Say something:
+            |             
+            textarea#message-text.form-control
+      |       
+      .modal-footer
+        button#cancelModalBtn.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        |         
+        button#sendModalBtn.button.btn.btn-primary(type='button', data-dismiss='modal') Send

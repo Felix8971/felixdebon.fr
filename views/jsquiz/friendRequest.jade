@@ -1,0 +1,67 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    
+    //each val, index in users
+    .container
+        // Heading Row
+        .row
+          .col-lg-12
+            h1.text-center Les demandes    
+     
+        .row
+          .col-md-6
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title.textxxMedium  
+                    | En attente de confirmation
+                    //(
+                    //span#nbMembres= nbrUsers 
+                    //| )
+
+              .panel-body(id='searched-members')    
+                each val, index in amis
+                    if val.statut === 'en attente de confirmation' || val.statut === 'recommended'
+                        .well2.text-left(id='well-#{val.pseudo}') 
+                            a(href='/profil/#{val.pseudo}', data-toggle="tooltip", title="pseudo" ) 
+                                span.list-pseudo= val.pseudo
+                                //span.prenom-nom
+                                //    |  (
+                                //    span=val.prenom
+                                //    | 
+                                //    span=val.nom
+                                //    | )                                
+                            if val.statut === 'recommended'
+                                span(style='margin-left:5px;')= '(Recommandé par ' + val.by +')'
+                                div.accepter-reco(id='accepter-#{val.pseudo}' title="Accepter la recommandation") Accepter
+                                div.ignorer(id='ignorer-#{val.pseudo}' title="Ignorer sa demande") Ignorer
+                            else    
+                                div.accepter(id='accepter-#{val.pseudo}' title="Accepter sa demande") Accepter
+                                div.ignorer(id='ignorer-#{val.pseudo}' title="Ignorer sa demande") Ignorer
+                                                               
+          .col-md-6
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title.textxxMedium 
+                    | Invitations que j'ai lancées
+
+              .panel-body(id='searched-members')    
+                each val, index in amis
+                    if val.statut === 'invitation en cours'  
+                        .well.text-left(style="min-height:60px;") 
+                            a(href='/profil/#{val.pseudo}', data-toggle="tooltip", title="pseudo" ) 
+                                //div.point-vert
+                                div.list-pseudo= val.pseudo
+                                div.en-attente= "En attente de confirmation..."
+                                //span.prenom-nom
+                                //    |  -
+                                //    span=val.prenom
+                                //    | 
+                                //    span=val.nom
+                                //    | -
+    div(style="height:300px;")
+    include footer.jade
+

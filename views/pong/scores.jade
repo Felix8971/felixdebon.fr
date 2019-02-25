@@ -1,0 +1,40 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    //if msg != ''
+    //   .msg-success.alert.alert-success(role='alert')= msg 
+    //contenu page
+    
+    //each val, index in scores
+    .container
+      .row
+        .col-md-12
+          h2 Registered games
+            span#nbrRegisteredGames= ' (' + nbrDoc + ')'
+          #games
+            .table-responsive
+                table#tableGames.table.table-bordered
+                    thead
+                      tr.active
+                        th Players (1/2)
+                        th Scores (1/2)
+                        th Gap (max-min)
+                        th Duration
+                        th Date
+                        th Time  
+                        th Winner
+                    tbody      
+                        each val, index in scores
+                          tr.active
+                            td= val.player0 + ' / ' +  val.player1
+                            td= val.score0 + ' / ' +  val.score1
+                            td= val.score0 - val.score1                         
+                            td= val.gameTime 
+                            td= val.date
+                            td= val.time                            
+                            td= val.winner
+
+    include footer.jade

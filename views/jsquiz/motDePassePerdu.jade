@@ -1,0 +1,24 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+  #formConnexion.container
+      if msg 
+        .alert.alert-danger(role='alert')= msg      
+      h4 Mot de passe perdu ?
+      p Saisissez votre adresse email ci-dessous, vous recevrez un mot de passe provisoire 
+
+      form(action='motDePassePerdu', method='post') 
+        //label.control-label(for='email') Email 
+        br
+        input.form-control(type='email',name='email', maxlength="100", placeholder="Email", required autofocus)
+        br
+        //input.form-control(type='submit',value='Send', id='submit')
+        button.btn.btn-primary(type='submit',value='Send', id='submit') Envoyer
+        br       
+        br       
+          
+  include footer.jade

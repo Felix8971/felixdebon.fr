@@ -1,0 +1,59 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    
+    .container
+
+      .well2.dark-gray
+        div.textLarge= 'Titre discussion: ' + discussion.titre
+        div.textxxMedium= 'Ouvert par ' + discussion.createur + ' le ' + moment(discussion.date).format("DD/MM/YYYY à HH:mm:ss") 
+        div.textxxMedium= 'Invités: '
+          each guest, index in discussion.guests
+            span= guest
+            //on ajoute une virgule apres le pseudo sauf pour le dernier de la liste 
+            if index < discussion.guests.length - 1 
+              span= ', '
+            else
+              span= '.'
+        if pseudo === 'jsquiz' ||  pseudo ===  discussion.createur   
+          br
+          button.btn.btn-danger(style="width:270px;", onclick="deleteDiscussion('#{discussion._id}')", type='button', value='Supprimer cette discussion') 
+            i.fa.fa-trash.fa-lg 
+            |  Supprimer cette discussion
+
+
+
+        //a.btn.btn-success.btn-sm(href='/formulaireConnexion') Revenir à la liste         
+  
+      //on affiche les messages
+      each msg, index in discussion.messages            
+        .well2.dark-gray(id='msg-#{msg._id}')
+          //Auteur et contenu du msg
+          div
+            //bouton supprimer
+            if pseudo ===  discussion.createur || pseudo == msg.auteur || pseudo == 'jsquiz' 
+              img( onclick="deleteMessage('#{discussion._id}-#{msg._id}')"  src='../../jsquiz/img/delete20.png' style='float:right;cursor:pointer' title='Supprimer ce message' alt='Supprimer') 
+            
+            //Photo de l'auteur
+            img.img-responsive.msg-photo-profil( src='../../jsquiz/img/photosProfils/#{msg.auteur}-thumbnail' , alt='photo de profil')  
+            div.post-author-date 
+              p.textxMedium.post-author-nom= msg.auteur
+              p.textxMedium.post-author-nom=  'Le ' + moment(msg.date).format("DD/MM/YYYY à HH:mm:ss") 
+        
+            //contenu du message ( on utilise la notation  !{...} pour que les sauts de lignes \n apparaissent bien à l'affichage  )    
+                 
+            p.textMedium(style='margin-top:10px;')  !{msg.txt} 
+           
+      //Ajout d'un nouveau message
+      .well2.text-left.dark-gray#exprimez-vous
+        p.textxMedium(style="font-weight:600") Ajouter un message
+        textarea#zone-ajout-message.form-control( placeholder='Exprimez-vous...', maxlength="400", style='border-radius:0;margin:0;height:60px;')
+        div(style="background-color:#F5F5F5")
+          button.envoyerMessage.btn.btn-primary.btn-sm(id='newMsg-#{discussion._id}', type='button', value='Envoyer')
+            i.fa.fa-paper-plane.fa-lg 
+            |  Envoyer
+
+    include footer.jade

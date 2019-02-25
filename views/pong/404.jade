@@ -1,0 +1,13 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade  
+    h1.text-center 404 error not found page
+    img.img-responsive.img-rounded(src='pong/img/error404.jpg', style='margin:auto', alt='error 404')
+    br
+    .text-center
+      a(href='/pong.home', style='margin:auto') HOME PAGE
+    
+  include footer.jade

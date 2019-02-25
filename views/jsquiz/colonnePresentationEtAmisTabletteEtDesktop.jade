@@ -1,0 +1,42 @@
+.col-sm-3.hidden-xs(id="profil-left-col" style='')
+  .well2.dark-gray
+    p.textxMedium= data.user.genre 
+    p.textxMedium= data.user.age + ' ans'
+    p.textxMedium= 'Habite à ' + data.user.ville
+    
+    .textxMedium(style="font-weight:600") Presentation:
+    p= data.user.presentation 
+
+    if pseudo === 'jsquiz' 
+      .textxMedium(style="font-weight:600") Email:
+      p= data.user.email 
+
+  .well2.dark-gray
+    .textxxMedium(style="font-weight:600") Amis (
+      span= data.user.nbrAmis
+      |)
+    //on affiche les neufs 1er amis (limit 9)
+    if data.user.amis
+      each val, index in data.user.amis
+        if val.statut === 'confirmed' 
+          div.div-photo-list-amis(id="photo-ami-#{val.pseudo}")
+            a(href='/profil/#{val.pseudo}', title="#{val.pseudo}" ) 
+              img.photo-list-amis(src='../../jsquiz/img/photosProfils/#{val.pseudo}-thumbnail' ,  alt='photo de profil')
+              div.textSmall.text-sur-photo 
+                p.vignette-pseudo= val.pseudo
+                div.point-vert(id="point-vert-#{val.pseudo}" , style="position:absolute;top:2px;left:2px;display:none;")
+                //b= val.prenom +' '+ val.nom                   
+                
+  .well2.dark-gray
+    .textxxMedium(style="font-weight:600") Quiz (
+      span= nbrQuizes
+      |)
+    //on affiche les quizes(limit 9)
+    if quizes
+      each val, index in quizes
+        if val._id.createur === profilOwner
+          .well2.text-left(style='padding: 9px; margin-bottom: 9px;font-size:0.9em;')
+              a(href='/formulaireQuiz/#{val._id.id}', data-toggle="tooltip", title="titre" ) 
+                div.list-quiz= val._id.titre
+                //div(style='display:inline-block').prenom-nom= ' ( ' + val.count + ' questions / Créé par '+ val._id.createur + ' )'
+

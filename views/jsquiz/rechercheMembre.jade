@@ -1,0 +1,70 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    if msg 
+      .messageHeader.alert.alert-success.text-center(role='alert')= msg  
+
+    .container
+        // Heading Row
+        .row
+          .col-lg-12
+            h1.text-center Recherche membres  
+            form.navbar-form.text-center(role='search', style='margin:20px 0;padding:0')
+              .form-group(style='margin:0')
+                .input-group.margin-bottom-sm
+                  span.input-group-addon
+                    i.fa.fa-search.fa-fw
+                  input.form-control(id='zone-recherche-membre', type='text', name='membre', maxlength="50", placeholder="Rechercher un membre...", required autofocus)
+
+        .row
+          .col-md-12
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title(style='font-size:2em;') 
+                    | Membres (
+                    span#nbMembres= nbrUsers - 1
+                    | )
+
+              .panel-body(id='searched-members')    
+                each val, index in users
+                  if  val.pseudo !== pseudo
+                    .well2.text-left(style="min-height:70px;") 
+                      div.div-photo-list-amis(id="photo-ami-#{val.pseudo}")
+                        img.photo-list-amis(src='jsquiz/img/photosProfils/#{val.pseudo}-thumbnail' ,  alt='photo de profil')
+                        div.textSmall.text-sur-photo 
+                          div.point-vert(id="point-vert-#{val.pseudo}" , title='En ligne')
+                                           
+                      a(href='/profil/#{val.pseudo}', data-toggle="tooltip", style="display:inline-block", title="pseudo" ) 
+                        //div.point-vert
+                        div.list-pseudo-search-member.textxMedium= val.pseudo 
+                        div.prenom-nom-search-member= '( ' +val.prenom+ ' ' + val.nom + ' )'
+                        
+                        if val.niveauJS    
+                          p.textMedium.niveau-js= 'Developpeur Javascript ( niveau ' + val.niveauJS + ' )'
+                        else
+                          p.textMedium.niveau-js= 'Developpeur Javascript'   
+
+                      //On regarde pour chaque membre trouvé dans la recherche si il est ami avec celui 
+                      //qui a fait la recherche de facon a afficher l'info 'Ami' à cote du pseudo le cas echeant
+
+                      -var statut = ''; //on parcourt la liste d'ami de pseudo
+                      -for (var i = 0; i < amis.length; i++){ 
+                      -  if ( amis[i].pseudo === val.pseudo ){ 
+                      -    statut = amis[i].statut;            
+                      -  }
+                      -} 
+
+                      -if ( statut === 'confirmed' ) 
+                          div.friend2 Ami
+                      -else if ( statut === 'invitation en cours' ||  statut === 'en attente de confirmation')
+                          div.en-attente Demande en attente...                         
+                      -else
+                          img.img-responsive.add-friend.add-friend-icon.friend2(style='float:right;cursor:pointer;' src='jsquiz/img/user-add-icon.png', title="Demander à etre ami", id='#{val.pseudo}' alt='Add friend icon')
+                                                               
+    include footer.jade
+
+

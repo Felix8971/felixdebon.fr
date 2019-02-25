@@ -1,0 +1,36 @@
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge') 
+  meta(name='viewport', content='width=device-width, initial-scale=1') 
+  meta(name='description', content='')
+  meta(name='author', content='')
+  title Multiplayers pong game
+  // Bootstrap Core CSS
+  link(href='pong/css/bootstrap.css', rel='stylesheet')
+  // Custom CSS
+  link(href='pong/css/pong.css', rel='stylesheet')
+  
+  // jQuery, Bootstrap, socket.io
+  script(src='pong/js/jquery.js')
+  script(src='pong/js/jQueryRotate.js')
+  script(src='pong/js/bootstrap.min.js')
+  script(src='/socket.io/socket.io.js')
+
+  //facebook share
+  meta(property='og:url', content='http://pong.felixdebon.fr')
+  meta(property='og:type', content='website')
+  meta(property='og:title', content='Your Website Title')
+  meta(property='og:description', content='Your description')
+  meta(property='og:image', content='http://http://pong.felixdebon.fr/image.jpg')
+
+
+
+  // js client for pong
+  script(src='pong/js/client.js')
+
+  // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+  // WARNING: Respond.js doesn't work if you view the page via file://
+  //if lt IE 9
+   script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')        
+   script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+

@@ -1,0 +1,45 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    //contenu page
+    .container
+      
+      .row.well(style='margin-bottom:3px')
+
+         //Entete (mobiles, smartphone)  
+        include enteteSmartphone.jade
+
+      .row.well 
+
+        //Navigation onglets
+        .col-xs-12.visible-xs(style="margin-bottom:5px;padding:0px;")      
+          ul.nav.nav-tabs
+            li(role='presentation')
+              a(href='/profil/#{profilOwner}' ) Mur
+
+            li(role='presentation')
+              a(href='/info/#{profilOwner}' ) Info
+
+            li(role='presentation')   
+              a(href='/amis/#{profilOwner}') Amis
+
+            li(role='presentation')   
+              a(href='/quizes/#{profilOwner}', class="active") Quiz  
+
+        .well.dark-gray
+          .textxxMedium(style="font-weight:600") Mes quiz (
+            span= nbrQuizes
+            |)
+          //on affiche les quizes(limit 9)
+          if quizes
+            each val, index in quizes
+              if val._id.createur === pseudo
+                .well.text-left(style='padding: 9px; margin-bottom: 9px;')
+                    a(href='/formulaireQuiz/#{val._id.id}', data-toggle="tooltip", title="titre" ) 
+                      span.list-quiz= val._id.titre
+                      //div(style='display:inline-block').prenom-nom= ' ( ' + val.count + ' questions / Créé par '+ val._id.createur + ' )'  
+include footer.jade

@@ -1,0 +1,112 @@
+doctype html
+html
+  include head.jade
+  body(style='text-align:center;') 
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs possibles msg.type: de info, warning, danger, success
+    
+    //.fb-like.center(style="margin:auto" data-href='http://felixdebon.fr', data-layout='standard', data-action='like', data-show-faces='true' data-share='true')   
+
+    .well.bloc-question#info-quiz
+      p.text-center.textxLarge.gras= quiz[0].titre
+      div.bloc-presentation-quiz
+        p
+          b= 'Créer par: '
+          span= quiz[0].createur + ' le ' + moment(quiz[0].date).format("DD/MM/YYYY à HH:mm:ss")   
+
+        if quiz[0].lastModifiedBy && quiz[0].lastModifiedBy != quiz[0].createur
+          p
+            b= 'Derniere modification par: '
+            span= quiz[0].lastModifiedBy   
+          
+        p
+          b='Niveau: '
+          span= quiz[0].niveauJS
+
+        p
+          b='Visible par: '
+          span= quiz[0].visiblePar
+
+        p
+          b='Modifiable par: '
+          if quiz[0].modifiablePar === 'Moi uniquement'
+            span= quiz[0].createur
+          else if quiz[0].modifiablePar === 'Moi et mes amis'        
+            span= quiz[0].createur + ' et ses amis.' 
+          else if quiz[0].modifiablePar === 'Tous les membres'        
+            span= 'Tous les membres' 
+
+        if scoreMoyenAllUsers
+          p
+            b='Score moyen: '
+            span= scoreMoyenAllUsers
+
+        if scoreMaxAllUsers    
+          p
+            b='Meilleur score: '
+            span= scoreMaxAllUsers + ' (par '+meilleurPseudo+')'
+
+        if quiz[0].presentation
+          p 
+            b= 'Description: '
+            pre.description= quiz[0].presentation
+      br    
+     
+      if modifiable || quiz[0].createur === pseudo || pseudo === 'jsquiz'
+        a.btn.btn-success.btn-sm.textxMedium(href='/editerQuiz/#{idQuiz}', style="width: 180px;margin:5px;display:inline-block;" type='button', ) Modifier ce quiz
+      if quiz[0].createur === pseudo || pseudo === 'jsquiz'
+        a.btn.btn-danger.btn-sm.textxMedium(href='#', onclick="deleteQuiz('#{idQuiz}')" style="width: 180px;margin:5px;display:inline-block;" type='button', ) Supprimer ce quiz
+
+  
+
+        hr(style='margin:0')
+    
+    //if randomImg == 0
+    //  img.center.img-responsive#doordonot(style='margin:auto; width:500px;padding:10px;border-radius:100px;' src='jsquiz/img/giphy4.gif', alt='giphy' class="center img-responsive")
+    //else  
+    //  video#waitaminute(width='400', height='300' autoplay loop)
+    //    source(src='jsquiz/img/a3L6vdm_460sv.mp4', type='video/mp4')
+    //    | Your browser does not support the video tag.
+
+    img#bonneReponse(src='../../jsquiz/img/bonne-reponse-troll.jpg', alt='bonne-reponse-troll')     
+    div#mauvaiseReponse
+      img(src='../../jsquiz/img/mauvaise-reponse-troll.jpg', alt='mauvaise-reponse-troll')     
+    div#correction Resultat et correction
+
+    br
+    each question, index in quiz
+      - var num = index + 1; 
+      div.bloc-question(id='#{index}', class= index === 0 ? 'afficher':'cacher') 
+        .panel.panel-info.center-block(style="margin:10px") 
+          .panel-heading
+            div.panel-title.textLarge
+              span(style="color:white;")= "Question " + num + "/" + quiz.length 
+              //span(style="float:right;border:2px solid white;padding:3px")= "Score:" + "5"
+
+          .panel-body(id='searched-members', style="font-family: monospace;") 
+
+            div
+              pre.textxMedium.question= quiz[index].question
+
+            //.well.textxMedium.question
+            //  p!= quiz[index].question.replace(/</g, "&lt;").replace(/>/g, '&gt;').replace(/\n/g, '<br/>')
+            //  //.replace(/ /g, '&nbsp;')
+            //  //.replace(/ /g, '&#x20;').
+            p.textRegular(style='text-align:center') Cliquez sur la bonne reponse          
+            each rep, indice in question.reponses
+              //l'id de la reponse est composé du numero de question (index) + nombre de question + id du quiz + _id de la question + indice de la reponse donnée
+
+              //.well.textxMedium.btn-reponse.hvr-border-fade(id='#{index}-#{quiz.length}-#{question.id}-#{question._id}-#{indice}') !{rep.txt }
+
+              pre.textxMedium.btn-reponse.hvr-border-fade( id='#{index}-#{quiz.length}-#{question.id}-#{question._id}-#{indice}' style='text-align:left;white-space : pre-wrap;')= rep.txt
+              
+            .well.textxMedium.btn-passer.center-block.hvr-skew-forward(id='#{index}-#{quiz.length}-#{question.id}-#{question._id}') Skip
+
+    //script.
+    //  $('#doordonot').fadeOut(5000);  
+    //  $('#waitaminute').delay(16000).fadeOut(2000);
+         
+    include footer.jade

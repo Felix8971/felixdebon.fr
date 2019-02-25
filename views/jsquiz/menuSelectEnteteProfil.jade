@@ -1,0 +1,8 @@
+if pseudo === 'jsquiz' 
+  select.form-control.select-profil-entete(style="display:inline-block;width:75px;" )
+    each val, index in {1:'Ami', 2:'Suggerer des amis...', 3:'Retirer ' + profilOwner + ' de ma liste d\'amis', 4: 'Supprimer des amis de ' + profilOwner}
+      option(selected= 'Ami' == val)= val 
+else
+  select.form-control.select-profil-entete(style="display:inline-block;width:75px;" )
+    each val, index in {1:'Ami', 2:'Suggerer des amis...', 3:'Retirer ' + profilOwner + ' de ma liste d\'amis'}
+      option(selected= 'Ami' == val)= val 

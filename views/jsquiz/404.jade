@@ -1,0 +1,16 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade  
+    .textLarge.text-center= txt
+    br
+    img.center.img-responsive(style='margin:auto;padding:10px;width:600px' src='jsquiz/img/giphy-yoda.gif', alt='giphy')
+    br
+    .text-center
+      a(href='/', style='margin:auto') 
+        i.fa.fa-2x.fa-home
+        |  HOME
+  div(style="height:130px;")   
+  include footer.jade

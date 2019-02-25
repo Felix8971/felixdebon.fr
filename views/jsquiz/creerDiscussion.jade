@@ -1,0 +1,45 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs posssibles msg.type: de info, warning, danger, success
+    h1.text-center.textxLarge='Créer une nouvelle discussion'
+    br
+    .container(style="width:300px")
+      
+      form(action='creerDiscussion', method='post') 
+              
+        label Titre/Sujet
+        br
+        input.form-control(required type='text', placeholder="Titre/Sujet...", maxlength="300", name='titre',  value="")  
+        br
+        label.control-label Invités
+        div.textSmall (clique ci dessous pour ouvrir ou fermer la liste) 
+        br
+        textarea.form-control#choix-amis-discussion(rows='2', placeholder="Guests", name='guests', maxlength="300", title='Clic to open or close friends list')= cible 
+        //Zone pour suggérer des amis 
+        .zone-ajouter-amis-discussion 
+          if pseudo === 'jsquiz'
+            div.chosen-friend(id='Tous les membres', style='margin:5px')
+              img.photo-choix-amis-discussion(src='jsquiz/img/friendRequest.png', alt='Tous les membres')
+              p(style='display:inline-block;width:150px;margin-left:15px;')=  'Tous les membres'             
+          if amis.length > 0
+            //p.textxMedium= 'Suggérer des amis que '+ profilOwner +' pourrait connaitre'
+            div.chosen-friend(id='Tous mes amis', style='margin:5px')
+              img.photo-choix-amis-discussion(src='jsquiz/img/friendRequest.png', alt='Tous mes amis')
+              p(style='display:inline-block;width:150px;margin-left:15px;')=  'Tous mes amis' 
+            each val, index in amis
+              div.chosen-friend(id='#{val}', style='margin:5px')
+                img.photo-choix-amis-discussion(src='jsquiz/img/photosProfils/#{val}-thumbnail', alt='photo de profil')
+                p(style='display:inline-block;width:150px;margin-left:15px;')=  val
+                //Au clic du bouton au recuperera id='#{val}    
+                       
+        br
+        button.btn.btn-lg.btn-success.center-block(style="width:265px;margin-bottom:5px;", type='submit',value='Valider', id='submit') Commencer la discussion
+       
+        
+    include footer.jade

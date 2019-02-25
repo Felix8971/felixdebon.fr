@@ -1,0 +1,39 @@
+doctype html
+html
+  include head.jade
+  body  
+
+    // Navigation
+    include navigation.jade
+    if msg != ''
+       .msg-success.alert.alert-success(role='alert')= msg 
+
+    //contenu page
+    .container
+      .row
+        .col-md-8
+          h2 About Js Quiz
+          .fb-like.center(style="display:inline-block;margin-bottom:8px;" data-href='http://www.felixdebon.fr', data-layout='button_count', data-action='like', data-show-faces='false' data-share='true')           
+          
+          p JsQuiz est un reseau social destiné aux developpeurs javascript. Ce site vous permet d'évaluer votre niveau en javascript à travers une series de quiz. Les membres peuvent créer et publier leurs propres quiz. JsQuiz a vu le jour en décembre 2015 et correspond au rendu final de mon projet de soutenance dans la cadre de la formation "Developpeur javascript full stack" que j'ai effectué à l'institut IFOCOP. Ce site a été developpé entierement en javascript avec Node JS, Express, Socket.io, Mongo DB, Bootstrap, Jade et Jquery.
+          br
+          p Ce site possède les fonctionnalitées suivantes :
+          ul
+            li Gestion de l’inscription et de la connexion des utilisateurs.
+            li Système de recherche des membres (utilisateurs enregistrés) sans rafraîchissement de la page (méthode asynchrone) 
+            li Espace particulier pour chaque membre dans lequel peuvent être publiés des messages et qui est consultable par d’autres membres.
+            li Gestion des liens entre les membres : ajout ou retrait d’un membre de sa liste de connaissances et recommandation d’un membre à une connaissance.
+            li Espace de dialogue en temps réel entre les membres (chat) qui persiste lors de la navigation. On peut lancer plusieurs chats en meme temps tout en continuant à naviguer sur le site (facon Facebook).
+            li Messagerie/discussion privées permettant l’échange de messages entre les membres.
+            li Notification par mail lorsqu’un membre envoie un message public ou privé à un autre membre.
+            li Interface de gestion permettant aux administrateurs de gérer les comptes des membres ainsi que les messages publics et privés.
+            li Affichage dans cette même interface des statistiques en temps réel: connexions, messages reçus et envoyés.
+
+
+          a.btn.btn-default(href='http://www.ifocop.fr/formations-metiers/web-digital/formation-developpeur-integrateur-web-option-javascript-full-stack/', target="_blank") Plus d'info
+        .col-md-4
+          img.img-responsive.img-rounded.imgCabine(src='jsquiz/img/keep-calm-and-learn-javascript.png', alt='javascript')    
+
+        
+
+    include footer.jade

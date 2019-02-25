@@ -1,0 +1,154 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs posssibles msg.type: de info, warning, danger, success
+
+    .container
+      h2.text-center.gras= quiz[0].titre
+        i.fa.fa-edit.fa-fw(style="margin-left:10px;padding-top:3px")
+      br
+      form(action="modifierQuiz/#{idQuiz}", method="post") 
+        .row
+          .col-md-12
+            
+            .div(style="max-width: 700px;margin:auto;")
+              label.control-label Titre
+              br
+              input.form-control(required type='text', placeholder="Titre", maxlength="100", name='titre',  value="#{quiz[0].titre}")  
+              br
+              
+              div.inline(style="width:166px;margin-top:15px;")
+                label.control-label Niveau du quiz en JS
+                select.form-control(name="niveauJS")
+                  option(selected= quiz[0].niveauJS == 'Debutant') Debutant
+                  option(selected= quiz[0].niveauJS == 'Intermediaire') Intermediaire 
+                  option(selected= quiz[0].niveauJS == 'Confirmé') Confirmé
+                  option(selected= quiz[0].niveauJS == 'Expert') Expert
+              br
+              div.inline(style="width:166px;margin-top:10px;")
+                label.control-label Visible par
+                  i.fa.fa-eye.fa-fw(style="margin-left:10px;")     
+                select.form-control(name='visiblePar', onchange="selectVisi(this.id, this.value)" )
+                  each val, index in {1:'Moi uniquement',2:'Moi et mes amis',3:'Tous les membres'}
+                    option(selected= quiz[0].visiblePar == val)= val
+              div.inline#blockModif(style="width:166px;margin-top:15px;")
+                label.control-label Modifiable par
+                  i.fa.fa-edit.fa-fw(style="margin-left:10px;")       
+                select.form-control(name='modifiablePar', id="modification")
+                  each val, index in {1:'Moi uniquement',2:'Moi et mes amis',3:'Tous les membres'}
+                    option(selected=quiz[0].modifiablePar == val)= val    
+
+              
+              br
+              p#ExplicationDroits.messageWarning(style='display: block;')
+                | Si vous choisisser l'option "Moi uniquement" le contenu de votre quiz ne sera pas accessible en Lecture/Ecriture par les autres utilisateurs. Toutefois, le nom du quiz pourra apparaitre dans le module de recherche.
+                br
+                | Pour partager vos listes uniquement avec vos amis choisissez l'option "Moi et mes amis".
+                | Le partage de listes peut permettre aux autres membres de corriger vos erreurs !
+
+              br
+              
+              label(style="margin-top:15px;") Commentaire sur ce quiz    
+              textarea.form-control(rows='3', name='presentation', maxlength="3000")= quiz[0].presentation 
+
+              br
+              a.btn.btn-info.inline(style="margin-bottom:5px;", href="#add-question" )
+                i.fa.fa-lg.fa-level-down
+                | Bas de page
+
+              //Questions et reponses
+              each question, index in quiz  
+                - numQuestion = index + 1
+                .panel.panel-info.center-block(id="panel-#{numQuestion}", style="margin-top:15px") 
+                  .panel-heading
+                    div.panel-title
+                      span(style="color:white;font-size:1.5em")= "Question "+numQuestion 
+                      i.fa.fa-remove.fa-1g(onclick="$('#panel-#{numQuestion}').remove()", style="margin-right:-10px;width:20px;float:right;cursor:pointer", title='Supprimer cette question', alt='Supprimer')
+                  .panel-body    
+                    textarea.form-control(required name="question-#{numQuestion}", style="border:2px solid grey;font-family:monospace;",  rows='3', placeholder="Tapez la question ici..." , maxlength="1000")= question.question  
+                    div.bloc-commentaire
+                      p(style="color:grey;margin-top:5px;") Saisissez les reponses et cochez la ou les  bonne(s) reponse(s)
+                      
+                      each reponse, i in question.reponses
+                        - var numReponse = i + 1; 
+                        - var etat = reponse.val ? true : false;
+                        
+                        div(id="reponse-#{numQuestion}-#{numReponse}" style="background-color:#D3D3D3;margin-top:10px;")
+                          input(id="checkbox-#{numQuestion}-#{numReponse}", checked=(reponse.val ? "checked" : undefined),style="position:relative;top:3px;left:110px;" type="radio", name="radio-#{numQuestion}", value="#{numReponse}" title="Cocher si bonne reponse" etat)
+                          label(style="margin-top:15px;margin-left:0px;")= 'Reponse ' + numReponse       
+                          i.fa.fa-remove.fa-1g(onclick="$('#reponse-#{numQuestion}-#{numReponse}').remove()", style="float:right;cursor:pointer;margin-top: 8px;margin-right:-3px;", title='Supprimer cette reponse', alt='Supprimer')
+                          textarea.form-control(required rows='2', placeholder="Reponse #{numReponse}..." name="reponse-#{numQuestion}-#{numReponse}", maxlength="1000", style="border-radius:0;font-family:monospace;" )= reponse.txt  
+                               
+                      button.center-block.btn.btn-primary.center-block.btn-sm.add-reponse(id="add-reponse-#{numQuestion}" style="margin-top:10px;" type='button')
+                        i.fa.fa-plus
+                        |  Ajouter une reponse 
+
+                      //button.center-block.btn.btn-info.center-block.btn-sm.add-explication(id="add-explication-#{numQuestion}" style="margin-top:10px;" type='button')
+                      //  i.fa.fa-commenting
+                      //  |  Ajouter une explication
+                      
+                      hr
+
+                      div(id="explication-#{numQuestion}" style="background-color:#D3D3D3;margin-top:10px;")
+                        label(style="margin-top:15px;margin-left:10px;")= 'Explication (facultatif)'       
+                        textarea.form-control(rows='2', placeholder="Expliquez la bonne reponse ici..." name="explication-#{numQuestion}", maxlength="1000", style="border-radius:0;font-family:monospace;" )= question.explication                                      
+
+              button.center-block.btn.btn-lg.btn-primary.center-block(id="add-question" style="margin-top:20px;" type='button', value='Ajouter une question')
+                i.fa.fa-lg.fa-plus
+                |  Ajouter une question
+              
+              br               
+              
+              hr(style="height: none;border: none;border-top: 1px dashed grey;") 
+              
+              button.btn.btn-lg.btn-success.inline(style="width:120px;margin-bottom:5px;", type='submit',value='Valider', id='submit')
+                i.fa.fa-send
+                |  Valider
+              a.btn.btn-lg.btn-default.inline(style="width:120px;margin-bottom:5px;float:right", href="/") Annuler   
+    
+        script.
+          document.getElementById("ExplicationDroits").style.display = 'none';
+          function selectVisi(id, value){
+
+            //alert("id=" + id + "value=" + value);
+            if ( value == "Moi uniquement" ){
+              //alert("1");
+              document.getElementById('blockModif').style.display ='none';
+              document.getElementById("modification").options[0].selected = "selected";//on selectionne "Moi uniquement" pour le menu 'modifiable'
+              document.getElementById("ExplicationDroits").style.display = 'inline-block';
+            }else if(  value == "Moi et mes amis"  ){
+              //alert("2");
+              document.getElementById('blockModif').style.display ='inline-block';
+              var element = document.getElementById("modification");
+              // Vidange liste 
+              while (element.firstChild) {
+                 element.removeChild(element.firstChild);
+              }
+              // Remplissage liste 
+              document.getElementById("modification").options[0] =  new Option('Moi uniquement');
+              document.getElementById("modification").options[1] =  new Option('Moi et mes amis');
+              document.getElementById("ExplicationDroits").style.display = 'none';
+              
+            }else if(  value == "Tous les membres"  ){
+              //alert("3");
+              document.getElementById('blockModif').style.display ='inline-block';
+              var element = document.getElementById("modification");
+              // Vidange liste 
+              while (element.firstChild) {
+                 element.removeChild(element.firstChild);
+              }
+              document.getElementById("modification").options[0] = new Option('Moi uniquement');
+              document.getElementById("modification").options[1] = new Option('Moi et mes amis');
+              document.getElementById("modification").options[2] = new Option('Tous les membres');
+              document.getElementById("ExplicationDroits").style.display = 'none';
+            }
+            
+            return true;
+          }
+  
+    include footer.jade

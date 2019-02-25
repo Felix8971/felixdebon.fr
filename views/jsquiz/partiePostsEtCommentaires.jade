@@ -1,0 +1,77 @@
+if accesPosts == false 
+  .col-sm-9.col-xs-12  
+    //Envoyez une invitation
+    .well2.text-left.dark-gray#exprimez-vous
+
+      if statut == 'invitation en cours'
+        p.textxMedium(style="font-weight:600")= 'Vous avez demandé à être son ami.'
+        div(style='color:green;font-weight:600') Demande en attente de confirmation...
+      else
+        p.textxMedium(style="font-weight:600")= 'Vous connaissez ' + profilOwner + ' ?'
+        p.textRegular(style='margin-right:5px;')= 'Pour voir ce qu’' + pronom + ' partage avec ses amis, envoyez-lui une invitation. '
+        div(style='color:green;')
+          input.add-friend.btn-add-friend.btn.btn-success.btn-xs(id='#{profilOwner}' type='button', value='Inviter')
+
+else  
+  //colonne des posts sur le mur     
+  .col-sm-9.col-xs-12(style='padding: 0px;')  
+
+    //Ajout d'un nouveau post
+    .well2.text-left.dark-gray#exprimez-vous
+      p.textxMedium(style="font-weight:600") Exprimez-vous
+      textarea#zone-ajout-post.form-control( placeholder='Exprimez-vous...', maxlength="400", style='border-radius:0;margin:0;height:60px;')
+      div
+        //input#envoyerPost.btn.btn-primary.btn-xs( type='button', value='Publier')
+        button#envoyerPost.btn.btn-primary.btn-xs(type='button', value='Publier')
+          i.fa.fa-paper-plane 
+          |  Publier
+
+      
+    //on affiche les posts
+    each post, index in data.posts            
+      .well2.dark-gray(id='#{post._id}')
+        //Auteur du post et contenu du post
+        div
+          //bouton supprimer
+          if pseudo == profilOwner || pseudo === post.author.pseudo || pseudo == 'jsquiz' 
+            img(onclick="deletePost('#{post._id}')" src='../../jsquiz/img/delete20.png' style='float:right;cursor:pointer'  title='Supprimer ce post' alt='Supprimer') 
+          
+          //Photo de l'auteur
+          img.img-responsive.post-photo-profil( src='../../jsquiz/img/photosProfils/#{post.author.pseudo}-thumbnail' , alt='photo de profil')  
+          div.post-author-date 
+            p.textxMedium.post-author-prenom= post.author.prenom + ' ' + post.author.nom + ' ('+post.author.pseudo+')'
+            p.textxMedium.post-author-nom= 'Le ' + post.date.date + ' à ' + post.date.time
+      
+          //contenu du post ( on utilise la notation  !{...} pour que les sauts de lignes \n apparaissent bien à l'affichage  )    
+               
+          p.textMedium(style='margin-top:10px;')  !{post.text}  
+
+
+        //Commentaires sur le post 
+
+        hr.hr-profil 
+
+        p.textRegular 
+          span.nbComments=  post.commentaires.length
+          |   
+          span commentaires       
+        hr.hr-profil 
+
+
+        each comment, index2 in post.commentaires
+          div.bloc-commentaire(id='#{comment.id}')  
+            //bouton Supprimer le commentaire
+            if  pseudo == profilOwner || pseudo === comment.author.pseudo || pseudo == 'jsquiz'
+              img(src='../../jsquiz/img/delete15.png' style='float:right;cursor:pointer' onclick="deleteCommentaire('#{comment.id}-#{post._id}')" title='Supprimer ce commentaire') 
+            
+            img.img-responsive.comment-photo-profil( src='../../jsquiz/img/photosProfils/#{comment.author.pseudo}-thumbnail' , alt='photo de profil')  
+            div.comment-info-group 
+              p.textMedium.comment-author=  comment.author.prenom + ' ' + comment.author.nom + ' ('+comment.author.pseudo+')'
+              p.textMedium.comment-date= 'Le ' + comment.date.date + ' à ' + comment.date.time
+              
+            p.textRegular(style='margin-top:10px;')= comment.text
+
+            hr.hr-profil  
+
+        //Ajout d'un commentaire 
+        textarea.zone-ajout-commentaire.form-control(id='add-comment-#{post._id}' maxlength="400", placeholder='Ajouter un commentaire...')

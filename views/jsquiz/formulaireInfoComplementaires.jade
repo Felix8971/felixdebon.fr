@@ -1,0 +1,157 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs posssibles msg.type: de info, warning, danger, success
+
+    .container
+      h1.text-center.textxLarge='Informations de profil ' + profilOwner
+
+
+      if firstAccess
+        .well
+          i.fa.fa-info-circle.fa-lg
+          | Salut à toi nouveau membre ! Je présente ce site à un jury dans la cadre de ma formation de développeur web et ce formulaire a été imposé dans la cahier des charges, donc désolé pour le dérangement ! Tu peux mettre un faux nom et une fausse adresse si tu veux ou cliquer sur le bouton magique (le bleu ci-dessous) afin de pré-remplir les champs avec des mots aléatoires prononçables. Merci pour ta compréhension. 
+        button.btn.btn-lg.btn-info.center-block( type='text', id='pre-remplir') Remplir les champs pour moi...
+
+      form(action='infoComplementaires#{ajoutActionPost}', method='post', enctype="multipart/form-data") 
+        .row
+          
+          if ajoutActionPost
+            input.form-control(style='display:none' required type='text', name='pseudo',  value="#{profilOwner}")
+          
+          .col-md-4
+            br
+            .colonne300
+              h2.textxLarge État civil
+              label.control-label Nom
+              br
+              input.form-control(required type='text', placeholder="Nom", maxlength="100", name='nom',  value="#{data.nom}")  
+              br
+              label.control-label Prénom                
+              br
+              input.form-control(required type='text',name='prenom', maxlength="15",  placeholder="Prénom", value="#{data.prenom}" )
+              br            
+              label.control-label.inline-label Genre:      
+             
+              label.radio-inline 
+                input#inlineRadio1(required="required" type='radio', name='genre', value='Homme' checked=data.genre=="Homme")
+                |  Homme
+              label.radio-inline
+                input#inlineRadio2(required="required" type='radio', name='genre', value='Femme' checked=data.genre=="Femme")
+                |  Femme
+              br
+              br
+              label.control-label Année de naissance  
+              select.form-control(required="required" style="width:80px;", name="anneeNaissance")
+                - var n = 1920
+                  //option(selected=data.anneeNaissance == n)= undefined
+                  while n < 2015
+                    option(selected=data.anneeNaissance == n)= n++
+              br
+              a(href='/majPassword', style='font-size:1em;color:blue;') Changer mon mot de passe  
+          .col-md-4
+              br
+              .colonne300
+                h2.textxLarge Adresse
+                label.control-label Numero/ Rue/place
+                input.form-control(type='text', placeholder="Rue", maxlength="150", name='rue', value="#{data.rue}")  
+               
+                br
+                label.control-label Code postal
+                input.form-control(type='text', placeholder="Code postal", maxlength="8", name='codePostal', value="#{data.codePostal}")                
+
+                br
+                label.control-label Ville
+                input.form-control(required type='text', placeholder="Ville", maxlength="100", name='ville', value="#{data.ville}")             
+                br
+                label.control-label Pays.     
+                select.form-control(style="width:150px;", name='pays')
+                  each val, index in {1:'France',2:'USA',3:'Italie',4:'Mali', 5:'Autre'}
+                    option(selected=data.pays == val)= val
+
+          .col-md-4
+            br
+            .colonne300 
+              h2.textxLarge Autres
+              label= "Photo de profil (\< 2Mo)"
+                  input#exampleInputFile(type='file', name='upl')
+              br
+              if data.photo
+                img.img-responsive.img-rounded(style='width:80px;height:80px' src='../../jsquiz/img/photosProfils/'+data.pseudo+'-thumbnail' ,alt='photo')
+              br
+              
+              
+              label.control-label= "Votre niveau en Javascript:"
+              select.form-control(required="required" style="width:130px;display:inline-block;", name="niveauJS")
+                option(selected=data.niveauJS == 'Debutant') Debutant
+                option(selected=data.niveauJS == 'Intermediaire') Intermediaire 
+                option(selected=data.niveauJS == 'confirmé') confirmé
+                option(selected=data.niveauJS == 'Expert') Expert
+              br
+              br
+              label Presentez-vous (400 char max)     
+              textarea.form-control(rows='5', name='presentation', maxlength="400")=  data.presentation                
+        .row 
+          br
+          //.col-md-3
+          //  -
+          .col-md-12
+            button.btn.btn-lg.btn-success.center-block(style="width:120px;margin-bottom:5px;", type='submit',value='Valider', id='submit') Valider
+          //col-md-6
+          //    if firstAccess
+                
+          //     button.btn.btn-lg.btn-primary.center-block(style="width:190px;margin-bottom:5px;", type='submit',value='PlusTard') Revenir plus tard...
+          //    else
+          //       a.btn.btn-lg.btn-default.center-block(style="width:120px;margin-bottom:5px;", href="/") Annuler   
+          //.col-md-3   
+          //  -
+         
+    script.
+
+      getRandomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      };
+
+      var motHasard = function(n){
+          var voyelles = ['a', 'e', 'i', 'o', 'u', 'ou', 'io','ou','ai','eu'];
+          var consonnes = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm','n', 'p', 'r', 's', 't', 'v', 'w','br','bl', 'cr','ch', 'dr', 'fr', 'dr', 'fr', 'fl', 'gr','gl','pr','pl','ps','st','tr','vr','sk'];
+                                  
+          var mot = '';
+          nv = voyelles.length-1;
+          nc = consonnes.length-1;
+          //console.log("getRandomInt(0,nv)="+getRandomInt(0,nv));
+
+          for(var i = 0; i < n; i++){
+
+            mot += voyelles[getRandomInt(0,nv)];
+            mot += consonnes[getRandomInt(0,nc)];
+            //console.log("mot="+mot);
+          }
+        
+        return mot.substr(0,n); // Comme certaines syllabes font plus d'un caractère, on est obligé de couper pour avoir le nombre exact de caractères.
+      }
+
+      var upperCaseStart  = function(s){
+        s = s.charAt(0).toUpperCase() + s.substring(1).toLowerCase();
+        return s;
+      }
+
+      //alert( upperCaseStart("eaaab"));
+
+      $("#pre-remplir").click(function(){
+         
+        $("input[name='nom']").val(upperCaseStart(motHasard(8))); 
+        $("input[name='prenom']").val(upperCaseStart(motHasard(8)));
+        $("input[name='rue']").val(getRandomInt(1,100) + ' rue ' + upperCaseStart(motHasard(9)));
+        $("input[name='codePostal']").val('7500' + getRandomInt(1,9));
+        $("input[name='ville']").val(upperCaseStart(motHasard(6)));
+        $("textarea[name='presentation']").val("Que dire ? Je suis un développeur web tout à fait ordinaire, j'aime les pizzas, la bière et je suis fan de Star War.");
+        
+      });         
+
+    include footer.jade

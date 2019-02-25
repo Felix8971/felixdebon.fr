@@ -1,0 +1,36 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+  #formSignIn.container
+
+      h1= h1
+      if estConnecte === true
+        h2= 'Bienvenue ! Vous êtes déja connecté !'
+      else
+        h1 Sign In
+        if msg 
+          .alert.alert-danger(role='alert')= msg
+        
+        form(action='pong.signIn', method='post') 
+          label.control-label(for='login') Pseudo
+          br
+          input.form-control(type='text',name='login', maxlength="15",  placeholder="Pseudo", required autofocus)
+          br
+          label.control-label(for='pwd') Password
+          br
+          input.form-control(type='password', placeholder="Password", maxlength="100", name='pwd', required)
+          br
+          label.control-label(for='pwdverif') Password verification
+          br
+          input.form-control(type='password', placeholder="Password verif", maxlength="100", name='pwdverif', required)
+          br  
+          //input.black(type='submit',value='Send', id='submit')
+          button.btn.btn-primary(type='submit',value='Send', id='submit') Send
+          br  
+          br
+          
+    include footer.jade

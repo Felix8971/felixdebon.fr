@@ -1,0 +1,71 @@
+.col-xs-3.hidden-xs
+  if profilOwner == pseudo     
+    a(style='position:relative' href='/formulaireInfoComplementaires/#{pseudo}', title="Modifier profil" ) 
+      div(style="position:relative;")
+        img.img-responsive#photo-profil(style='margin:0;' src='../../jsquiz/img/photosProfils/#{data.user.pseudo}-thumbnail', alt='photo de profil')
+  else
+    div(style='position:relative') 
+      div(style="position:relative;top:0px")
+        img.img-responsive#photo-profil(style='margin:0;' src='../../jsquiz/img/photosProfils/#{data.user.pseudo}-thumbnail', alt='photo de profil')
+
+.col-xs-9.hidden-xs.well2.dark-gray#cadre-info-entete
+  p.textxLarge.font-bold.inline= data.user.prenom  +' '+ data.user.nom
+  span.textxLarge.font-bold= ' ('+ data.user.pseudo +')' 
+  if profilOwnerIsConnected && profilOwner != pseudo
+      div.en-ligne-sm(id='enLigne-desktop-#{data.user.pseudo}') En ligne
+
+  if data.user.niveauJS    
+    p.textxMedium= 'Developpeur Javascript ( niveau ' + data.user.niveauJS + ' )'
+  else
+    p.textxMedium= 'Developpeur Javascript'
+   
+  if accesPosts && pseudo != profilOwner
+    include menuSelectEnteteProfil.jade
+
+
+    a(href="/creerDiscussion/#{profilOwner}")
+      img.icon-messagerie(src='../../jsquiz/img/messagerie2.png' onclick="" title='Messagerie')
+    if profilOwnerIsConnected
+      img.icon-chat(id='icon-chat-#{data.user.pseudo}' src='../../jsquiz/img/chat-icon5.png' onclick="openChat('#{data.user.pseudo}')" title='Démarrer le chat')
+
+    //Zone pour suggérer des amis 
+    .well2.zone-suggerer-amis.hidden-xs
+      
+      img.close-amis-suggeres(src='../../jsquiz/img/delete20.png' style='float:right;cursor:pointer' title='Fermer')     
+      if amisAsuggerer.length > 0
+        p.textxMedium= 'Suggérer des amis que '+ profilOwner +' pourrait connaitre'
+        each val, index in amisAsuggerer
+          div(id='suggered-friend-#{val}')
+            img.photo-suggerer-amis(src='../../jsquiz/img/photosProfils/#{val}-thumbnail', alt='photo de profil')
+            p(style='display:inline-block;width:100px;margin-left:20px;')=  val
+            //Au clic du bouton au recuperera id='#{profilOwner}-#{val}
+            input.suggerer-friend.btn.btn-success.btn-xs(style='margin-left:30px;' id='#{profilOwner}-#{val}' type='button', value='Suggérer comme ami(e)')         
+            hr
+      else
+        p.textMedium(style="") A lui suggérer des amis tu n'as point pour le moment...     
+        img.img-responsive(style='width:300px', src='../../jsquiz/img/giphy-yoda.gif', alt='giphy')
+
+    if pseudo == 'jsquiz'
+      //Zone pour supprimer amis 
+      .well2.zone-supprimer-amis.hidden-xs
+        
+        img.close-supprimer-amis(src='../../jsquiz/img/delete20.png' style='float:right;cursor:pointer' title='Fermer')     
+        if amis.length > 0
+          p.textxxMedium= 'Supprimer des amis de '+ profilOwner 
+          each val, index in amis
+            div(id='friend-#{val}')
+              img.photo-supprimer-amis(src='../../jsquiz/img/photosProfils/#{val}-thumbnail', alt='photo de profil')
+              p(style='display:inline-block;width:100px;margin-left:20px;')=  val
+              //Au clic du bouton au recuperera id='#{profilOwner}-#{val}
+              input.supprimer-friend.btn.btn-danger.btn-xs(style='margin-left:30px;' id='#{profilOwner}-#{val}' type='button', value='Supprimer')         
+              hr
+        else
+          p.textxMedium(style="") Cette personne n'a pas d'amis...
+          img.img-responsive(style='width:300px', src='../../jsquiz/img/giphy-yoda.gif', alt='giphy')
+
+  if pseudo == 'jsquiz'
+    include boutonsAdminModifEtsupressProfil.jade  
+
+  script.
+    $("#photo-profil").height($("#cadre-info-entete").height()+20);  
+    //$("#photo-profil").width($("#photo-profil").height());  

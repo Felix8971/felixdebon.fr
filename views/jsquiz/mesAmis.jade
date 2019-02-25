@@ -1,0 +1,45 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    
+    //each val, index in users
+    .container
+        // Heading Row
+        //.row
+        //  .col-lg-12
+        //    h1.text-center Les demandes    
+     
+        .row
+          .col-md-12
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title(style='font-size:2em;') 
+                    | Mes amis
+                    | (
+                    span#mes-amis-nbr-amis= nbrAmis 
+                    | )
+
+              .panel-body(id='searched-members')   
+                if  nbrAmis > 0
+                    each val, index in amis
+                        if val.statut === 'confirmed'  
+                            .well.text-left(id='well-#{val.pseudo}')  
+                                a(href='/profil/#{val.pseudo}', data-toggle="tooltip", title="pseudo" ) 
+                                    //div.point-vert
+                                    span.list-pseudo= val.pseudo
+                                    //span.prenom-nom
+                                    //    |  (
+                                    //    span=val.prenom
+                                    //    | 
+                                    //    span=val.nom
+                                    //    | )
+                                span.unfriend(id='#{val.pseudo}' title='Enlever de ma liste d\'ami') Unfriend
+                else
+                    p.textxxMedium Vous n'avez pas encore d'amis                                          
+                    a.btn.btn-info.btn-sm(style="font-size:1.2em" href="/rechercheMembre", role='button') Rechercher des amis 
+    div(style="height:300px;")
+    include footer.jade
+

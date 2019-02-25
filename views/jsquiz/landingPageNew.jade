@@ -1,0 +1,148 @@
+// Page Content
+
+
+link(href='jsquiz/css/ihover.css', rel='stylesheet')
+link(href='jsquiz/css/animations.css', rel='stylesheet')
+
+.div
+    // Heading Row
+    //.row
+    //  .col-lg-12
+    //    #phraseAccueil.well.text-center  Bienvenue sur JsQuiz le reseau social dedié aux developpeurs Javascript       
+
+    #hero
+
+      div(id="elevator-1")
+        img.imageMeteor_1.opacity(src='jsquiz/img/meteor-black-3.png', title="Je suis un astéroïde qui erre paisiblement dans l'espace intersideral (animé entierement en CSS3). Sachez que le premier astéroïde découvert, en 1801, est aussi le plus grand: Cérès. Mais cela n\'a rien à voir avec Javascript alors laissez-moi partir...")
+
+      div(id="elevator-2")
+        img.imageMeteor_2.opacity(src='jsquiz/img/_0017_meteor-blue-5.png', title="Je suis un astéroïde qui erre paisiblement dans l'espace intersideral (animé entierement en CSS3). Sachez que le premier astéroïde découvert, en 1801, est aussi le plus grand: Cérès. Mais cela n\'a rien à voir avec Javascript alors laissez-moi partir...")
+
+      img.opacity( id="realistic-star-1", src="jsquiz/img/star2.png", title="star")
+      img.opacity( id="realistic-star-2", src="jsquiz/img/star2.png", title="star")
+      img.opacity( id="realistic-star-3", src="jsquiz/img/star2.png", title="star")
+      img.opacity( id="realistic-star-4", src="jsquiz/img/star2.png", title="star")
+      img.opacity( id="realistic-star-5", src="jsquiz/img/star2.png", title="star")
+
+      img.opacity( id="astronaut-1", src="jsquiz/img/astronaut-2.png" title="Major Tom")
+      img.opacity( id="astronaut-2", src="jsquiz/img/astronaut-1.png" title="Major Tom")   
+      img.opacity( id="astronaut-3", src="jsquiz/img/astronaut-4.png" title="Major Tom") 
+
+      img#saturn.opacity(style="z-index:0;position:absolute;top:17%;z-index:0;left:65%", src="jsquiz/img/saturn2.png" title="saturn")
+
+      .gros-titre.text-center.textTitre Devenez un astronaute du JavaScript ! 
+      .textxMedium.text-center.bloc-stars(style="position:relative;z-index:2")
+        div(style="text-align:left;margin:15px 15px 30px;;font-weight:600;")
+          img.star(src='jsquiz/img/star.png' class="infinite-rotation hvr-wobble-horizontal" alt="star")  
+          span(style="position:relative")= "Boostez votre JS grace à " 
+          a(style="color:white;text-decoration:underline;" href="/rechercheQuiz")= "nos quiz"    
+          br
+          br
+          img.star(src='jsquiz/img/star.png' class="infinite-rotation hvr-wobble-horizontal" alt="star")
+          span(style="position:relative")= "Créez et partagez vos propres quiz"
+          br
+          br
+          img.star(src='jsquiz/img/star.png' class="infinite-rotation hvr-wobble-horizontal" alt="star")
+          span(style="position:relative")= "Rencontrez d'autres developpeurs"
+      if !estConnecte
+        div#bloc-btn-inscription
+          a.btn.btn-lg.btn-success#inscription(href='/formulaireSignIn') 
+            i.fa.fa-fw.fa-rocket
+            |  Inscription
+
+      if estConnecte      
+        div#bloc-citation.textxxMedium.text-center
+          div.text-center(style="display:inline-block;")
+            i.fa.fa-fw.fa-quote-left.mr15
+          p.inline.ml5.mr5= "Messieurs, l'échec n'est pas une option."
+            //i.fa.fa-fw.fa-quote-right.m15
+          p  - Gene Kranz -            
+            
+      div(style="position: absolute;left: 0%;top: 95%;z-index: 10000;margin-left:2px")
+        .fb-like.center(data-href='http://www.felixdebon.fr', data-layout='button_count', data-colorscheme:'light' ,data-action='like', data-show-faces='false' data-width="400" data-share='true')  
+
+
+    .zone-quiz
+      .row(style="text-align:center")
+        .col-md-12
+          div#incontournables-titre.textxLarge="Les quiz incontournables"  
+
+      .row
+        .col-sm-12
+          div#bloc-incontournables 
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline
+              a(href="/formulaireQuiz/56bb8077c9adfa4f0006beee", data-toggle="tooltip" ) 
+                .img
+                  img( style="", src='jsquiz/img/JS_Fundamentals2.jpg', alt='JS Fundamentals')
+                .info
+                  h3 Les bases du javascript
+                  p.sous-titre Maitrises-tu vraiment les bases du javascript ? 
+
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline
+              a(href='http://www.felixdebon.fr/formulaireQuiz/56c08f67fda4a18507f3ca7c', data-toggle="tooltip" ) 
+                .img
+                  img( src='jsquiz/img/jquery.jpg', alt='jquery')
+                .info
+                  h3 Premier vol d'essai avec Jquery   
+                  p.sous-titre The Write Less, Do More, JavaScript Library.
+      
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline
+              a(href='http://www.felixdebon.fr/formulaireQuiz/56c65876b651cf092025f86f', data-toggle="tooltip" ) 
+                .img
+                  img( style="", src='jsquiz/img/nodejs.jpg', alt='node js')
+                .info
+                  h3 Node JS
+                  p.sous-titre  La plateforme de développement Javascript incontournable     
+
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline
+              a(href='http://www.felixdebon.fr/formulaireQuiz/56bfc90dfda4a18507f3ca2b', data-toggle="tooltip" ) 
+                .img
+                  img(  src="jsquiz/img/old-computer.jpg", alt="Javascript un peu d'Histoire...")
+                .info
+                  h3 Javascript un peu d'Histoire...
+                  p.sous-titre Aux sources du javascript
+        
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline(onclick="alert('Coming soon...')")
+              a(href='#', data-toggle="tooltip" ) 
+                .img
+                  img( style="", src='jsquiz/img/meteorJS2.jpg', alt='meteor js')
+                .info
+                  h3 Meteor JS
+                  p.sous-titre Le framework open-source revolutionaire de développement web basé sur Node.js.                      
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline(onclick="alert('Coming soon...')")
+              a(href='#', data-toggle="tooltip") 
+                .img
+                  img( style="", src='jsquiz/img/js_intermediaire.jpg', alt='JS niveau  intermediaire')
+                .info
+                  h3 Javascript intermediaire
+                  p.sous-titre Niveau intermediaire        
+        
+            .ih-item.square.colored.effect6.from_top_and_bottom.inline(onclick="alert('Coming soon...')")
+              a(href='#', data-toggle="tooltip" ) 
+                .img
+                  img( style="", src='jsquiz/img/space-shuttle.jpg', alt='JS niveau expert')
+                .info
+                  h3 Javascript expert
+                  p.sous-titre Pour les vétérans de l’espace JS                   
+
+    
+    //Quand la taille de la fenetre change on change la taille de #bloc-incontournable
+    script.
+      $('body').css('padding-top',"0px");
+      $('#hero').css('margin-top',"0px");  
+      var w_zone_quiz = 316*parseInt(($('body').width())/316);
+      $('#bloc-incontournables').width(w_zone_quiz+2); 
+      $(window).resize(function() {
+        var w_zone_quiz = 316*parseInt(($('body').width())/316);
+        $('#bloc-incontournables').width(w_zone_quiz+2);       
+      });
+
+      //Animation des astronautes et des asteroides une fois que la page chargée (images aussi)
+      $(window).load(function(){
+        $("#astronaut-1").addClass("monte-et-descend1");
+        $("#astronaut-2").addClass("monte-et-descend2");   
+        $("#astronaut-3").addClass("monte-et-stop");
+
+        $("#elevator-1").addClass("elevator-1").show();
+        $("#elevator-2").addClass("elevator-2").show();
+      });

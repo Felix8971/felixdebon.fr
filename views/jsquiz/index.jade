@@ -1,0 +1,22 @@
+doctype html
+html
+  include head.jade
+  body
+    
+    // Navigation
+    include navigation.jade
+    
+    #loading
+        img#loading-image(src='jsquiz/img/loading_apple.gif', style="width:50px;", alt='Loading...')
+    
+    if msg != ''
+       .messageHeader.alert.alert-success.text-center(role='alert')= msg
+
+    //contenu page
+    include landingPageNew.jade
+    include footer.jade
+
+script.
+  $(window).load(function(){
+    $('#loading').hide();
+  });

@@ -1,0 +1,128 @@
+// Page Content
+.container
+    // Heading Row
+
+    .row
+      .col-lg-12
+        #phraseAccueil.well.text-center  Play pong online and make new friends !
+    .row
+      .col-md-12
+        //img.img-responsive.img-rounded(src='pong/img/ddd.png', alt='')
+        //h1 Game
+        div#cadreJeuPong
+          img(src='pong/img/vMire.jpg', id='mire' alt='mire') 
+          #playBtn.btnPong CLICK TO PLAY  
+          #wait.infoPong Wait please...
+          #resignBtn( data-toggle='tooltip', data-placement='top', title='Resign')
+          #SoundOnBtn( data-toggle='tooltip', data-placement='top', title='Sound Off/On')
+            img(src='pong/img/pos_On.png', id='pos_On' alt='pos_On') 
+          #SoundOffBtn( data-toggle='tooltip', data-placement='top', title='Sound Off/On')
+            img(src='pong/img/pos_Off.png', id='pos_Off' alt='pos_Off') 
+          #molette( data-toggle='tooltip', data-placement='top', title='channels')
+            img(src='pong/img/molette.png', id='molette-img' alt='molette') 
+          canvas#gameCanvas(width='600', height='439')
+            span.bigRed Votre navigateur ne supporte pas le canvas, mettez le a jour !
+         
+    .row
+      .col-md-6#privateChatCadre
+        h1 Private game's chat
+        #privateChatInside
+          #privateConversation
+          input#privateMsg( type='text', class='form-control')
+          input#privateEnvoyer(type='button', value='Send', class='btn btn-primary')
+          //a.btn.btn-primary.btn-lg(href='#') Send!
+          //img.img-responsive.img-rounded(src='pong/img/genius-ping-pong.png', style="width:250px;" id='samImg' alt='sam') 
+          
+
+    hr
+    #fb-root
+    //script.
+    //  (function(d, s, id) {
+    //  var js, fjs = d.getElementsByTagName(s)[0];
+    //  if (d.getElementById(id)) return;
+    //  js = d.createElement(s); js.id = id;
+    //  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+    //  fjs.parentNode.insertBefore(js, fjs);
+    //  }(document, 'script', 'facebook-jssdk'));
+    //// Your share button code
+    //.fb-share-button(data-href='http://pong.felixdebon.fr', data-layout='button_count') share
+
+    //Liste des challenges  
+    .row
+      .col-md-6
+        h1 Ongoing challenges (
+          span#nbrChallenges 0
+          |)
+        #challenges
+            .table-responsive
+                table#tableChallenges.table  
+                  tr#pasDeDefis
+                    td No ongoing challenges...
+      .col-md-6
+        h1 Ongoing games (
+          span#nbrOngoingGames 0
+          |)
+        #ongoingGames
+            .table-responsive
+                table#tableOngoingGames.table.table-bordered  
+                  tr#noOngoingGames
+                    td No ongoing games...
+                    
+     //Liste des users connectés
+    .row
+      .col-md-6
+        h1 Connected users (
+          span#nbrUsers 0
+          |)
+        #publicUsers
+            .table-responsive
+                table#tableUsers.table
+      .col-md-6
+        h1 Public chat
+        #publicChat
+          #publicConversation
+          input#publicMsg( type='text', class='form-control')
+          input#publicEnvoyer(type='button', value='Send', class='btn btn-primary') 
+
+    hr
+
+    .row
+      .col-md-4
+        h2 Pong's rules  
+        p
+          | In my Pong version the goal is to defeat your opponent by being the first one to gain 10 points. A player gets a point once the opponent misses a ball. When lost (and at the beginning of the game) the ball is placed back in the middle and launched in a random direction. The speed of the ball increases in a linear way over time. Warning: the ball can go in an unpredictable direction if it bounce too close to the edges of the paddle...             
+        img.img-responsive.img-rounded(src='pong/img/players.jpg', alt='players')
+        a.btn.btn-default(href='#') More Info
+
+      .col-md-4
+        h2 Terms and policy
+        |                  
+        p
+        | This web site was developed in September 2015 as part of the NodeJS workshop during my training of Js full stack Web Developer at IFOCOP institute (DIW JS 01). Pong is a registered trademark of Atari Interactive Inc., this site is a fan site and is not affiliated in any way with Atari Interactive Inc. This web site may place cookies in your browser. No warranty. You should consider this game as an "As is" service. In no event shall this web site, site administrators or contributors be liable for any direct or indirect damages, including, but not limited to, loss of data, or profits, or business interruption, however caused and even if advised of the possibility of such damage.                 
+        br
+        br
+        img.img-responsive.img-rounded(src='pong/img/Pong-cabinet.jpg', alt='Pong-cabinet')
+        a.btn.btn-default(href='#') More Info
+        
+      .col-md-4
+        h2 Technologies used
+        img.img-responsive.img-rounded(src='pong/img/technos.png', style="margin-top:20px;", alt='technos')
+        br        
+        p
+          | I developed this web site entirely in javascript with Node JS, Socket.io, Mongo DB, Bootstrap, Jade and Jquery. This is my first multiplayers game.
+        img.img-responsive.img-rounded(src='pong/img/IBM_3277_Display.jpg', style="margin-top:30px", alt='IBM_3277_Display')
+        a.btn.btn-default(href='https://fr.wikipedia.org/wiki/Node.js', target="_blank") More Info
+
+
+        script.
+          var angleMolette = 38;
+          $("#molette-img").rotate({angle:angleMolette});
+          $("#molette").offset().left = 481;
+          $("#molette").offset().top = 58; 
+
+          $('#molette').click( function() {  
+              angleMolette  += 27.692307692;  
+              $("#molette-img").rotate({angle:angleMolette});
+              $("#molette").offset().left = 481;
+              $("#molette").offset().top = 58; 
+          });

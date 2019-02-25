@@ -1,0 +1,29 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+  #formConnexion.container
+      if estConnecte === true
+        h2= 'Bienvenue ! Vous êtes déja connecté !'
+      else
+        h1 Connexion
+        if msg 
+          .alert.alert-danger(role='alert')= msg
+        form(action='pong.connexion', method='post') 
+          label.control-label(for='login') Pseudo 
+          br
+          input.form-control(type='text',name='login', maxlength="15", placeholder="Pseudo", required autofocus)
+          br
+          label Password
+          br
+          input.form-control(type='password', name='pwd', placeholder="Password", required)
+          br 
+          //input.form-control(type='submit',value='Send', id='submit')
+          button.btn.btn-primary(type='submit',value='Send', id='submit') Send
+          br
+          br 
+          
+  include footer.jade

@@ -1,0 +1,48 @@
+doctype html
+html
+  include head.jade
+  body(style="padding-top:73px;") 
+    // Navigation
+    include navigation.jade
+
+    
+    //#formConnexion.container(style="position:absolute;left:50%;margin-left:-110px;z-index:2;")
+    #formConnexion.container(style="")
+        if estConnecte === true
+          h2(style="/*color:white;*/")= 'Bienvenue ! Vous êtes déja connecté !'
+        else
+          h1(style="/*color:white;*/text-align:center;") Connexion
+          if msg 
+            .alert.alert-danger(role='alert')= msg
+          form(action='connexion', method='post') 
+
+            .input-group.margin-bottom-sm
+              span.input-group-addon
+                i.fa.fa-user.fa-fw
+              input.form-control(type='text',name='pseudo', maxlength="15", placeholder="Pseudo", required autofocus)
+            
+            br
+            
+            .input-group
+              span.input-group-addon
+                i.fa.fa-key.fa-fw
+              input.form-control(type='password', name='pwd', placeholder="Password", required)
+
+            br            
+            //input.form-control(type='submit',value='Send', id='submit')
+            button.btn.btn-primary(type='submit',value='Send', id='submit') Valider
+            br
+            br 
+            .text-center
+              a(href='/motDePassePerdu', style='/*color:white;*/') Mot de passe oublié ?
+            br   
+            .text-center(style="/*color:white;*/")
+              p(style='display:inline-block;margin-right:10px')= "Nouveau sur quizJS ?" 
+              a(id="inscris-toi", href='/formulaireSignIn', style='display:inline-block;/*color:white;*/') Inscris-toi 
+
+            div(style="height:250px;")  
+    //img.image-reponsive(id="rocket-launch2" style="z-index:1;width:100%;min-height:320;background-color: grey;", src='jsquiz/img/rocket-launch7.png', alt='node js')
+
+    include footer.jade
+    script.
+      $(".footer").css("margin-top","0px");

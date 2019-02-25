@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  
+    <title>Connect 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="Content-Type" content="UTF-8">
+    <meta name="Content-Language" content="en">
+    <meta name="Description" content="a connect 4 responsive web site implemented with React and NodeJS">
+    <meta name="Keywords" content="connect 4 game responsive React NodeJS ">
+    <meta name="Subject" content="connect4 game">
+    <meta name="Author" content="DEBON Félix">
+    <meta name="Identifier-Url" content="http://felixdebon.com/connect4/public">
+    <meta name="Category" content="games">
+
+    <link rel="stylesheet" href="./dist/app.css"/>
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.ie.min.css" />
+    <![endif]--> 
+
+    <script src="lib/lib.min.js"></script> 
+
+  </head>
+  <body>
+    <div id="pre-loading">Loading...</div>
+    <a class="github-fork-ribbon" href="https://github.com/Felix8971/connect4-node-react" title="Fork me on GitHub">Fork me on GitHub</a>
+    
+    <div id="container"></div>
+   
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/babel" src="./dist/bundle.js"></script>
+
+  </body>
+</html>

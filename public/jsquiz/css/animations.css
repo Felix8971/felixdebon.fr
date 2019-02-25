@@ -1,0 +1,413 @@
+
+
+@keyframes animAstronaut {
+	0% {
+	  animation-timing-function: ease-out;
+	  transform: translate3d(0,0,0);
+	}
+	50% {
+	  animation-timing-function: ease-in;
+	  transform: translate3d(0,-350px,0);
+	}
+	100% {
+	  /*animation-timing-function: linear;*/
+	  transform: translate3d(0,0,0);
+	}	
+}
+
+@keyframes animAstronaut2 {
+	0% {
+	  animation-timing-function: linear;
+	  transform: translate3d(0,0,0);
+	}
+	100% {
+	  animation-timing-function: linear;
+	  transform: translate3d(0,-320px,0);
+	}	
+}
+
+.monte-et-descend1{
+	animation-delay: 0s;
+	animation-duration: 10s;
+	/*animation-iteration-count: infinite;*/
+	animation-name: animAstronaut;
+	
+}
+.monte-et-descend2{
+	animation-delay: 10s;
+	animation-duration: 10s;
+	/*animation-iteration-count: infinite;*/
+	animation-name: animAstronaut;
+}	
+.monte-et-stop{ /*utilisé pour le dernier astronaut*/
+	animation-delay: 20s;
+	animation-duration: 2s;
+	/*animation-iteration-count: infinite;*/
+	animation-name: animAstronaut2;
+	animation-fill-mode: forwards;/*pour eviter disparition image à la fin de l'animation*/
+	
+}
+
+@keyframes translate { 
+    0% {
+	  animation-timing-function: linear;
+	  transform: translate3d(0,0,0);
+	}
+	100% {
+	  animation-timing-function: linear;
+	  transform: translate3d(1000px,500px,0px);
+	}
+}
+
+.translate{
+	animation-delay: 0s;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+	animation-name: translate;
+}	
+	
+@keyframes translateY {
+	0% {
+	  animation-timing-function: linear;
+	  transform: translate3d(0,0,0);
+	}
+	100% {
+	  animation-timing-function: linear;
+	  transform: translate3d(0,500px,0);
+	}
+}
+
+@keyframes translateX {
+	0% {
+	  animation-timing-function: linear;
+	  transform: translate3d(-300px,0,0);
+	}
+	100% {
+	  animation-timing-function: linear;
+	  transform: translate3d(2000px,0,0);
+	}
+}
+
+@keyframes rotation {
+  0% {
+    animation-timing-function: linear;
+    transform: rotate(0deg);
+  } 
+  100% {  
+    animation-timing-function: linear;
+    transform: rotate(360deg); 
+  }
+} 
+
+@-webkit-keyframes rotation{ 
+   from {-webkit-transform:rotate(0deg);} to {-webkit-transform:rotate(360deg);} 
+} 
+@-moz-keyframes rotation{ 
+   from {-moz-transform:rotate(0deg);} to {-moz-transform:rotate(360deg);} 
+} 
+@-o-keyframes rotation{ 
+   from {-o-transform:rotate(0deg);} to {-o-transform:rotate(360deg);} 
+} 
+
+.infinite-rotation{ /* utilisé pour les etoites */
+  /*position:relative;width:100px;display:inline-block;float:right;*/
+  animation-name:rotation; -webkit-animation-name:rotation; 
+  -moz-animation-name:rotation; -o-animation-name:rotation; 
+  animation-duration:20s; -webkit-animation-duration:20s; 
+  -moz-animation-duration:20s; -o-animation-duration:20s; 
+  animation-iteration-count:infinite; -webkit-animation-iteration-count:infinite; 
+  -moz-animation-iteration-count:infinite; -o-animation-iteration-count:infinite; 
+  animation-timing-function:linear; -webkit-animation-timing-function:linear; 
+  -moz-animation-timing-function:linear; -o-animation-timing-function:linear; 
+}/*40s*/
+
+.imageMeteor_1{
+	
+	animation-delay: 5s;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-name: rotation;
+	animation-timing-function: linear;		
+	
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 5s;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: rotation;
+	-webkit-animation-timing-function: linear; 
+	 position:relative;
+	 z-index:1;
+}
+
+.imageMeteor_1:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused; 
+}
+
+.imageMeteor_2{
+	width:80px;
+	height:65px;
+	/*border: 1px solid red;*/
+	animation-delay: 0s;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	animation-name: rotation;
+	animation-timing-function: linear;	
+
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 4s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: rotation;
+	-webkit-animation-timing-function: linear; 		
+	position:relative;
+	z-index:1;
+}
+
+.imageMeteor_2:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused; 
+}
+
+.imageMeteor_3{
+	animation-delay: 0s;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-name: rotation;
+	animation-timing-function: linear;	
+
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: rotation;
+	-webkit-animation-timing-function: linear; 			
+	z-index:1;
+}
+
+.imageMeteor_3:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused; 
+}
+
+#elevator-1{ display:none;}
+#elevator-2{ display:none;}
+
+.elevator-1{
+	top:-50px;
+	left:0%;
+	width:80px;
+	height:65px;
+	position: absolute;
+	/*border: 1px solid blue;*/
+	z-index:1;
+	animation-delay: 5s;
+	animation-duration: 20s;
+	animation-iteration-count: 5; /*infinite;*/
+	animation-timing-function: linear;					
+	animation-name: translate;
+	
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 5s;
+	-webkit-animation-duration: 20s;
+	-webkit-animation-iteration-count: 5; /*infinite;*/
+	-webkit-animation-timing-function: linear; 			
+	-webkit-animation-name: translate;
+}
+
+.elevator-1:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused;
+}
+
+.elevator-2{
+	top:0px;
+	left:45%;
+	width:80px;
+	height:65px;
+	position: absolute;
+	/*border: 1px solid blue;*/
+	z-index:1;
+	
+	animation-delay: 0s;
+	animation-duration: 15s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;					
+	animation-name: translateY;
+	
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 15s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear; 				
+	-webkit-animation-name: translateY;		
+}
+
+.elevator-2:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused;
+}
+
+.elevator-3{
+	top:45%;
+	left:-100px;;
+	position: absolute;
+	z-index:1;
+	animation-delay: 0s;
+	animation-duration: 40s;
+	animation-iteration-count: infinite;
+	animation-name: translateX;
+	animation-timing-function: linear;	
+
+	/* Chrome, Safari, Opera */		
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 40s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: translateX;
+	-webkit-animation-timing-function: linear; 				
+}	
+
+.elevator-3:hover {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  animation-play-state:paused;
+}
+
+.agrandissement {
+    -webkit-transition: width 5s ease-in-out;
+    -moz-transition: width 5s ease-in-out;
+    -o-transition: width 5s ease-in-out;
+    transition: width 5s ease-in-out;
+    width:500px;
+}
+
+
+/*
+@keyframes pendule-left {
+  0%{
+    animation-timing-function: ease-in;
+    transform: rotate(-6deg);
+  }
+  10%{  
+    animation-timing-function: ease-out;
+    transform: rotate(0deg); 
+  } 
+  20%{  
+    animation-timing-function: linear;
+    transform: rotate(5deg); 
+  }
+  30%{
+    animation-timing-function: linear;
+    transform: rotate(0deg);
+  }
+  40%{  
+    animation-timing-function: linear;
+    transform: rotate(-4deg); 
+  } 
+  50%{
+    animation-timing-function: linear;
+    transform: rotate(0deg);
+  }
+  60%{  
+    animation-timing-function: linear;
+    transform: rotate(3deg); 
+  } 
+  70%{  
+    animation-timing-function: linear;
+    transform: rotate(0deg); 
+  }
+  80%{
+    animation-timing-function: linear;
+    transform: rotate(-2deg);
+  }
+  90%{  
+    animation-timing-function: linear;
+    transform: rotate(0deg); 
+  }
+  100%{ 
+    animation-timing-function: linear;
+    transform: rotate(1deg); 
+  } 
+}
+
+@keyframes pendule-right {
+  0%{
+    animation-timing-function: ease-in;
+    transform: rotate(6deg);
+  }
+  10%{  
+    animation-timing-function: ease-out;
+    transform: rotate(0deg); 
+  } 
+  20%{  
+    animation-timing-function: linear;
+    transform: rotate(-5deg); 
+  }
+  30%{
+    animation-timing-function: linear;
+    transform: rotate(0deg);
+  }
+  40%{  
+    animation-timing-function: linear;
+    transform: rotate(4deg); 
+  } 
+  50%{
+    animation-timing-function: linear;
+    transform: rotate(0deg);
+  }
+  60%{  
+    animation-timing-function: linear;
+    transform: rotate(-3deg); 
+  } 
+  70%{  
+    animation-timing-function: linear;
+    transform: rotate(0deg); 
+  }
+  80%{
+    animation-timing-function: linear;
+    transform: rotate(2deg);
+  }
+  90%{  
+    animation-timing-function: linear;
+    transform: rotate(0deg); 
+  }
+  100%{ 
+    animation-timing-function: linear;
+    transform: rotate(-1deg); 
+  } 
+}
+
+.pendule-left{ 
+  animation-name: pendule-left; -webkit-animation-name: pendule-left; 
+  -moz-animation-name: pendule-left; -o-animation-name: pendule-left; 
+  animation-duration:1s; -webkit-animation-duration:1s; 
+  -moz-animation-duration:1s; -o-animation-duration:1s; 
+  animation-iteration-count:1; -webkit-animation-iteration-count:1; 
+  -moz-animation-iteration-count:1; -o-animation-iteration-count:1; 
+  animation-timing-function:linear; -webkit-animation-timing-function:linear; 
+  -moz-animation-timing-function:linear; -o-animation-timing-function:linear; 
+    -ms-transform-origin: 50% 100%; 
+    -webkit-transform-origin: 50% 100%; 
+    transform-origin: 50% 100%; 
+}
+
+
+.pendule-right{ 
+  animation-name: pendule-right; -webkit-animation-name: pendule-right; 
+  -moz-animation-name: pendule-right; -o-animation-name: pendule-right; 
+  animation-duration:1s; -webkit-animation-duration:1s; 
+  -moz-animation-duration:1s; -o-animation-duration:1s; 
+  animation-iteration-count:1; -webkit-animation-iteration-count:1; 
+  -moz-animation-iteration-count:1; -o-animation-iteration-count:1; 
+  animation-timing-function:linear; -webkit-animation-timing-function:linear; 
+  -moz-animation-timing-function:linear; -o-animation-timing-function:linear; 
+    -ms-transform-origin: 50% 100%; 
+    -webkit-transform-origin: 50% 100%; 
+    transform-origin: 50% 100%; 
+}
+*/

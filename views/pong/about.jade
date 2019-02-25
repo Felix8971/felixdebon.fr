@@ -1,0 +1,45 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    if msg != ''
+       .msg-success.alert.alert-success(role='alert')= msg 
+    //contenu page
+    .container
+      .row
+        .col-md-8
+          h2 About pong
+          |                 
+          p
+            |1972 was a great year, I blew out my first birthday candle, NASA launched the last Apollo mission on the moon and Atari developed Pong. I used to play Pong with my brother all the time when I was a young kid that's why I had a lot of fun in developing this game today.<br><br>
+            |Pong is one of the first computer games that ever created, this simple "tennis like" game features two paddles and a ball. The goal is to defeat your opponent by being the first one to gain 10 points. A player gets a point once the opponent misses a ball. The game can be played with two human players, or one player against a computer controlled paddle. The game was originally developed by Allan Alcorn and released in 1972 by Atari corporations. Soon, Pong became a huge success, and became the first commercially successful game, On 1975, Atari release a home edition of Pong (the first version was played on Arcade machines) which sold 150,000 units. Today, the Pong Game is considered to be the game which started the video games industry, as it proved that the video games market can produce significant revenues.
+            |<br><br>Nolan Bushnell founded Atari at 1972 in order to create games and ideas and license them to other companies for mass production. Pong was actually a training exercise for one of Atari's employees - Allan Alcorn, Once it was finished, Nolan made few adjustments in order to make the game more interesting (like changing the ball's return angle) and added simple sound effects. The first Pong Arcade machine was installed on a local bar, and it was so successful that Atari decided to produce and sell the game by themselves, rather then licensing it to other companies. In 1973 the company finally got a line of credit from Wells Fargo and started an assembly line, by the end of the year, Pong arcade machines were shipped to location all over the U.S. as well as to other countries. Similar to other famous games such as Pacman and Tetris, Pong became one of the symbols of computer gaming.
+            |<br><br>Atari sold more then 35000 Pong machines, this figure is only about one third of the total number of Pong machines that were sold globally, since many Pong clones appeared shortly after the debut of the original Atari Pong game. The way Atari chose to compete with the Pong Game clones was to produce more innovative games such as "Double Pong" which was a pong game with four players, two in every side and a bigger screen. 
+          a.btn.btn-default(href='https://en.wikipedia.org/wiki/Pong', target="_blank") More Info
+        .col-md-4
+          img.img-responsive.img-rounded.imgCabine(src='pong/img/800pxSignedPongCabinet.jpg', alt='800px Signed Pong Cabinet')
+
+    .container
+      .row
+        .col-md-12
+          h2 The "TV8 Sports" console of my childhood
+          p
+          | The 1978 Saft Leclanché TV8 Sports was one on the best, built around the General Instruments AY-3-8610 chip.    
+    .container
+      .row
+        .col-md-6
+          img.imgPong.img-responsive.img-rounded.imgCabine(src='pong/img/tv8_1.jpg', alt='tv8')
+        .col-md-6
+          img.imgPong.img-responsive.img-rounded.imgCabine(src='pong/img/tv8_2.jpg', alt='tv8')
+     br
+    .container
+      .row
+        .col-md-12
+           a.btn.btn-default(href='http://www.retrothing.com/2010/11/pong-never-looked-so-good.html', target="_blank") More Info          
+           
+    include footer.jade
+  
+  
+  

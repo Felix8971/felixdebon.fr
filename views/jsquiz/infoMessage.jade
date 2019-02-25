@@ -1,0 +1,12 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.lead.text-center(class='alert-#{msg.type}', role='alert')= msg.txt
+      //valeurs posssibles msg.type: de info, warning, danger, success
+      img.center.img-responsive(style='margin:auto;textwidth:200px;height:200px' src='jsquiz/img/giphy.gif', alt='giphy')
+      a.btn.btn-lg.btn-success.center-block(href='/', style="width:120px;margin-top:5px;") OK     
+  include footer.jade

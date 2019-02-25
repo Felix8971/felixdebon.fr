@@ -1,0 +1,215 @@
+doctype html
+html
+  include head.jade
+  body(style="background-color:#12458A;")  
+    // Navigation
+    include navigation.jade
+    if msg 
+      .alert.alert-danger.lead.text-center(role='alert')= msg 
+
+    img.opacity( id="star", style="position:absolute;width:50px;top:100px;left:55px;",  src="jsquiz/img/star2.png", title="star")
+   
+    
+    div(id="fusee")
+      img.opacity( style="z-index:1;width:250px;position:relative;top:50px;" src="jsquiz/img/navette.png" title="fusee") 
+
+      img( class="feu-tuyere1" src="jsquiz/img/feu-tuyere2.png" title="")
+      img( class="feu-tuyere2" src="jsquiz/img/feu-tuyere2.png" title="")         
+
+      img( class="smoke-particle1"  src="jsquiz/img/smokeparticle.png" title="")           
+      //img( class="smoke-particle2"  src="jsquiz/img/smokeparticle.png" title="")       
+      //img( class="smoke-particle3"  src="jsquiz/img/smokeparticle.png" title="")    
+      img( class="smoke-particle4"  src="jsquiz/img/smokeparticle.png" title="")    
+
+    div( id="launch-platform" style="position:absolute;z-index:2;width:250px;right:10px;top:540px;" )
+      img.opacity( style="z-index:2;width:250px;" src="jsquiz/img/launch-platform.png" title="launch-platform")    
+
+    //div( style="position:absolute;z-index:2;width:250px;right:10px;" )
+    //  img.opacity( id="smoke1" style="z-index:2;width:250px;top:-300px" src="jsquiz/img/Smoke_Transparent_PNG_Image.png" title="smoke")    
+    
+    //https://www.youtube.com/watch?v=2R8V68viXqk
+    //http://www.finalclap.com/tuto/float-fixed-scroll-jquery-css-rocket-83/
+    //https://www.gamedevmarket.net/asset/animated-smoke-pack-1-1111/
+    //http://gallery.yopriceville.com/Free-Clipart-Pictures/Smoke-PNG/Transparent_Smoke_PNG_Picture#.VrfMJkKLe1E
+    .container
+      h1.text-center(style="color:white") Inscris-toi 
+      h2.text-center(style="color:white;font-size:1.2em;")= "Et fais decoller ton niveau en Javascript !"
+
+      form(id="form" action='signIn', method='post') 
+        .row
+          .col-md-12(style="color:white;")
+            
+            if estConnecte === true
+              h2= 'Bienvenue ! Vous êtes déja connecté !'
+            else
+              .colonne300(style="z-index:5;position:relative;")
+                label.control-label Pseudo 
+                br
+                input.form-control(id="pseudo", type='text',name='pseudo', maxlength="15",  placeholder="Pseudo", value="#{data.pseudo}" required autofocus)  
+                
+                br
+                label.control-label Adresse mail
+                input.form-control(id="email", type='email', name='email', maxlength="80",  placeholder="Email", value="#{data.email}" required)
+                br
+                label.control-label Password
+                input.form-control(id="pwd", type='password', placeholder="Password", maxlength="100", name='pwd', required)
+                
+                br
+                label.control-label Password verification
+                input.form-control(id="pwdverif", type='password', placeholder="Password verif", maxlength="100", name='pwdverif', required)
+                br
+
+                //p.text-center(style='color:red;margin-left:5px;font-size:0.8em')
+                //  | (Les champs marqués d'une asterisque sont obligatoires)                  
+        .row
+          br
+          //button.btn.btn-lg.btn-primary.center-block(style="width:300px;", type ="xxxx" value='xxx', id='submit') Décollage !
+          div(id="btn-submit-decollage") Décollage !
+          //type ="submit" value='Send'
+    div(style="height:100px;") 
+    
+    //Animations fusée
+    script.
+
+      function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      //semi aléatoire d'etoiles... (un petit moment de poesie javascript)
+      for(i=0;i<30;i++){
+        var y = getRandomArbitrary(75,800);
+        var left = getRandomArbitrary(10,1500);
+        var w = getRandomArbitrary(15,50);
+        var opacity = getRandomArbitrary(0.6,1);
+        console.log("y:"+y + " left:" + left);
+        $("#star").clone()
+        .appendTo("body")
+        .css({ top: y + 'px' })
+        .css({ left: left + 'px' })
+        .css({ width: w + 'px' });
+      }
+
+      function isEmailAddress(email){
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);   
+      }
+      var nbInputFilled;
+      
+      $("input").keyup(function(event){
+        console.log("change");
+        var inputs = $('input');
+        nbInputFilled = 0;
+        $.each( inputs, function( key, input ) {
+          console.log( key,": ",input.value);
+          if ( input.value.trim().length ){ nbInputFilled++; }
+        });
+        console.log("nbInputFilled:"+nbInputFilled);   
+        if ( nbInputFilled === 1 ){
+          //envoyer fumée blanche
+        }
+        if ( nbInputFilled === 2 ){
+          //plus de fumée blanche
+        }
+        if ( nbInputFilled === 3 ){
+          //Envoyer etincelles  
+        }
+        if ( nbInputFilled === 4 ){
+          //Envoyer etincelles + fumée blanche
+        }           
+      });
+
+
+
+      $("#btn-submit-decollage").click(function(event){
+             
+        if ( nbInputFilled === 4 ){
+  
+          if ( isEmailAddress($("#email").val()) ){
+
+            if ( $("#pwd").val() === $("#pwdverif").val() ){
+            
+              if ( $("#pwd").val().length >= 6 ){
+
+                $("#fusee").show();
+                $("#launch-platform").show();
+                
+                //Lancer animation decollage fusée
+                $("#fusee").animate({top:'-700px'}, 10000 );
+
+                //Animation flammes
+                $('.smoke-particle').css("visibility","visible");
+                
+                $('.feu-tuyere1').css("visibility","visible");
+                $('.feu-tuyere2').css("visibility","visible");
+
+                //var i1 = 0,  i2 = 2, i3 = 3;
+                //setInterval(function(){
+                //  $('#smoke-particle1').attr("src",'jsquiz/img/jet/jet' + i1 + '.2.png');
+                //  $('#smoke-particle2').attr("src",'jsquiz/img/jet/jet' + i2 + '.2.png');
+                //  $('#smoke-particle3').attr("src",'jsquiz/img/jet/jet' + i3 + '.2.png');
+                //  $('#smoke-particle4').attr("src",'jsquiz/img/jet/jet' + i1 + '.2.png');
+                //  i1 = (i1 + 1)%5;
+                //  i2 = (i2 + 1)%5;
+                //  i3 = (i3 + 1)%5;
+                //},100);
+
+
+                //Clone la particule de fumée n
+                var cloneParticle = function( n ){
+                  var container = $(".smoke-particle"+n);
+                  var top = container.offset().top;
+                  var left = container.offset().left;
+                  //console.log(container.offset());
+                  $("#fusee > .smoke-particle"+n).clone()
+                  .appendTo("body")
+                  .css({ top: top + 'px' })
+                  .css({ left: left + 'px' })
+                  .css({ visibility: 'visible' })
+                  .addClass('new');
+                }
+
+                var growing_factor = 1.2;
+                var random_dispersion_factor = 4;
+                setInterval(function(){
+                  cloneParticle(1);
+                  //cloneParticle(2);
+                  //cloneParticle(3);
+                  cloneParticle(4);
+
+                  $(".new").each(function( index ){
+                    var w_ini = $(this).width();//console.log("w_ini:"+w_ini);
+                    var left = $(this).offset().left;
+                    $(this).width( growing_factor*w_ini + 'px');           
+                    var w_fin = $(this).width();
+                    $(this).css({ left: left - (w_fin-w_ini)/2 + getRandomArbitrary(-1,1)*random_dispersion_factor + 'px' });
+
+                    //on fait diminuer l'opacité des particules de fumée jusqu'à 0 puis on les detruit
+                    var opacity = 300/270 - w_fin/270;
+                    if ( opacity > 0 ){
+                      $(this).css('opacity',opacity)
+                    }else{
+                      $(this).remove();
+                    }
+                  });
+                },100);
+
+                //On post le formulaire à la fin de l'animation
+                setTimeout(function(){ 
+                  $("#form").submit();
+                },6000);
+
+              }else{
+                alert("Le password doit comporter au moins 6 caracteres!");
+              }
+            }else{
+              alert("Le password et le password de confirmation ne sont pas egaux !");
+            }             
+          }else{
+            alert("Adresse email non valide.");
+          } 
+        }else{
+          alert("Merci de remplir tous les champs demandés.");
+        }  
+      });
+
+    include footer.jade

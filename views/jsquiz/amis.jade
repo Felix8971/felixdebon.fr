@@ -1,0 +1,71 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    //contenu page
+    .container
+      
+      .row.well(style='margin-bottom:3px')
+
+        //Entete (mobiles, smartphone)  
+        include enteteSmartphone.jade
+        
+      .row.well 
+      
+        //Navigation 
+        .col-xs-12.visible-xs(style="margin-bottom:5px;padding:0px;")  
+          ul.nav.nav-tabs
+            li(role='presentation')
+              a(href='/profil/#{profilOwner}') Mur
+
+            li(role='presentation' )
+              a(href='/info/#{profilOwner}') Info
+
+            li(role='presentation', class="active")   
+              a(href='/amis/#{profilOwner}') Amis
+
+            li(role='presentation')   
+              a(href='/quizes/#{profilOwner}') Quiz
+
+
+      .row.well 
+
+        //Colonne presentation et amis 
+        .col-sm-12.visible-xs(id="profil-left-col" style='')
+          .well.dark-gray
+            .textxxMedium(style="font-weight:600") Amis (
+              span= data.user.nbrAmis
+              |)
+            //on affiche les neufs 1er amis (limit 9)
+            if data.user.amis
+              each val, index in data.user.amis
+                if val.statut === 'confirmed' 
+                  div.div-photo-list-amis
+                    a(href='/profil/#{val.pseudo}', title="#{val.pseudo}" ) 
+                      img.photo-list-amis(src='jsquiz/img/photosProfils/#{val.pseudo}-thumbnail' ,  alt='photo de profil')
+              
+                      div.textSmall.text-sur-photo 
+                        p.vignette-pseudo= val.pseudo
+                        div.point-vert(id="point-vert-#{val.pseudo}" , style="position:absolute;top:2px;left:2px;display:none;")
+                        //b= val.prenom +' '+ val.nom 
+
+                        //b= val.prenom +' '+ val.nom                   
+                              
+        if accesPosts == false 
+          .col-sm-9.col-xs-12  
+            //Envoyez une invitation
+            .well.text-left.dark-gray#exprimez-vous
+
+              if statut == 'invitation en cours'
+                p.textxMedium(style="font-weight:600")= 'Vous avez demandé à être son ami.'
+                div(style='color:green;font-weight:600') Demande en attente de confirmation...
+              else
+                p.textxMedium(style="font-weight:600")= 'Vous connaissez ' + profilOwner + ' ?'
+                p.textRegular(style='margin-right:5px;')= 'Pour voir ce qu’' + pronom + ' partage avec ses amis, envoyez-lui une invitation. '
+                div(style='color:green;')
+                  input.add-friend.btn.btn-success.btn-xs(id='#{profilOwner}' type='button', value='Inviter')
+
+include footer.jade

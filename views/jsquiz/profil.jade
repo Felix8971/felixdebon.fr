@@ -1,0 +1,42 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    //contenu page
+    .container
+      
+      .row.well2#entete-profil(style='margin-bottom:3px')
+
+        //Entete (tablette et desktop)  
+        include enteteTabletteDesktop.jade
+
+        //Entete (smartphone)  
+        include enteteSmartphone.jade
+
+      .row.well2 
+        //Colonne presentation et amis (tablette et desktop)
+        include colonnePresentationEtAmisTabletteEtDesktop.jade  
+
+        //navigation onglets (Smartphone)
+        .col-xs-12.visible-xs(style="margin-bottom:5px;padding:0px;")      
+          ul.nav.nav-tabs
+            li(role='presentation', class="active" )
+              a(href='/profil/#{profilOwner}' ) Mur
+
+            li(role='presentation' )
+              a(href='/info/#{profilOwner}' ) Info
+
+            li(role='presentation')   
+              a(href='/amis/#{profilOwner}' ) Amis
+
+            li(role='presentation')   
+              a(href='/quizes/#{profilOwner}' ) Quiz       
+
+        
+        //Partie Posts et commentaires...
+        include partiePostsEtCommentaires.jade
+
+    include footer.jade

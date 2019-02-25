@@ -1,0 +1,48 @@
+doctype html
+html
+  include head.jade
+  body  
+    // Navigation
+    include navigation.jade
+
+    if msg 
+      .messageHeader.alert.alert-success.text-center(role='alert')= msg
+
+    .container
+        // Heading Row
+        .row
+          .col-lg-12
+            h1.text-center Discussions    
+            p.text-justify.textMedium
+              i.fa.fa-info-circle.fa-lg 
+              |La discussion correspond à la messagerie privée classique et non au chat. Pour chatter avec un ami connecté tu dois aller sur son profil.
+
+            form.navbar-form.text-center(role='search', style='margin:20px 0;padding:0')
+              .form-group(style='margin:0')
+                input.form-control(id='zone-recherche-discussion', type='text', placeholder='Rechercher (titre, auteur)...' )
+                a.btn.btn-lg.btn-success(href='/creerDiscussion', style="margin:5px;display:inline-block;" id="" type='button', ) Creer une nouvelle discussion
+            br
+        .row
+          .col-md-12
+            .panel.panel-info
+              .panel-heading
+                h3.panel-title 
+                    span.textxxMedium Discussions / messages (
+                    span#nbMyDiscussions.textxxMedium= 0
+                    span.textxxMedium )
+              .panel-body(id='searched-discussions')    
+                each discu, index in discussions 
+                  if pseudo === 'jsquiz' || discu.createur == pseudo 
+                    .well.text-left
+                      a(href='/discussion/#{discu._id}', data-toggle="tooltip", title="titre" )
+                        div.list-pseudo.textxMedium= 'Titre: ' + discu.titre                   
+                  else
+                    each guest, index in discu.guests
+                      if pseudo == guest ||  guest == 'Tous les membres'
+                        .well.text-left                                  
+
+    script.
+      //Permet de recalculer les nombres de discussions affichés dans les entetes                       
+      setTimeout(function(){socket.emit('rechercherDiscussion','');},500);
+    div(style="height:220px;") 
+    include footer.jade
